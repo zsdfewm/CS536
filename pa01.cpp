@@ -1,5 +1,5 @@
 #include<iostream>
-
+#include<string>
 using namespace std;
 
 int main(int agrc, char * * argv)
@@ -16,9 +16,43 @@ int main(int agrc, char * * argv)
     bool creator = false;
     bool badSwitch = false;
     
-    int port_num = atoi(argv[1]);
+    int port_num = std::stoi(argv[1]);
     
+    int i;
+
+    string option;
+    cin >> option;
     while(!p_exit){
+
+	//for(i=2; i<argc; i++)
+	//{
+	if(strcmp(option, "help") == 0)
+	    help = true;
+	else if(strcmp(option, "exit") == 0)
+	    p_exit = true;
+	else if(strcmp(option, "myip") == 0)
+	    showMyip = true;
+	else if(strcmp(option, "myport") == 0)
+	    showMyport = true;
+	else if(strcmp(option, "connect") == 0)
+	    portConnect = true;
+	else if(strcmp(option, "list") == 0)
+	    showList = true;
+	    else if(strcmp(option, "terminate") == 0)
+		conTerminate = true;
+	    else if(strcmp(option, "generate") == 0)
+		fileGen = true;
+	    else if(strcmp(option, "upload") == 0)
+		conUpload = true;
+	    else if(strcmp(option, "creator") == 0)
+		creator = true;
+	    else
+	    {
+		badSwitch = true;
+		cout << stderr << "Unknown Switch: '" << argv[i] <<"'\n";
+	    }
+	}
+
         if (help) {
             cout << "This application will take one command line parameter that correspnds to\n";
             cout << "the port on which your process will listen for incoming connections.\n\n";
