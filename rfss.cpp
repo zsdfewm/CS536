@@ -1,39 +1,58 @@
-#include <iostream>
-#include <thread>
-#include <netdb.h>
-#include <vector>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <string>
+#include "rfss.h"
 
-#include "rsff.h"
-#include "client.h"
-#include "server.h"
+using namespace std;
 
-Rfss::Rfss(int port) {
-  this.server.init(port);
+/**/
+Rfss::Rfss(char * hostname, int port) {
+    //Client *cli = new Client();
+    //cli->init(hostname, port);
+    client.init(hostname, port);
+    //server.init(port);	//serverpart
+
+    cout << "test... " << hostname <<endl;
+    cout << "test... " << port <<endl;
 }
+/**/
 
-Rfss::init() {
-  // Let the server begin to listen
-  std::thread server_thread(server.listen());
-  // Take control of terminal
+void Rfss::init() {
+    // Let the server begin to listen
+    //thread server_thread(&Server::svlisten, server);	//serverpart
+    // Take control of terminal
+
+    //cout << "test... before join..." <<endl;
+    //server_thread.join();	//serverpart
+
+    
   
 }
 
 // Connected to a host;
-Rfss::connect(string host_name, int port) {
-  Client *client = new Client(host_name, port);
-  if (client->connect()) {
-    this.client_vec.append(client);
-    std::cout << "Connect success";
-  } else {
-    std::cout << "Connect failed";
-  }
+void Rfss::connect(char * host_name, int port) {
+    Client *cli = new Client();
+    cli->init(hostname, port);
+    //client.init(hostname, port);
+    if (cli->connect()) {
+	client_vec.append(cli);
+	std::cout << "Connect success";
+    } else {
+	std::cout << "Connect failed";
+    }
+}
+/*
+void Rfss::terminate(int connect_id) {
+    Client *client = client_vec.erase(connect_id-1);
+    client->stop();
+    delete client;
 }
 
-int main() {
-  int port = 12345;
-  Rfss rfss(port);
-  rfss.init(); 
+*/
+
+int main(int argc, char * * argv) {
+    //int port = 12345;
+    char * hostname = argv[1];
+    int port = atoi(argv[2]);
+    Rfss rfss(hostname, port);
+    rfss.init(); 
+    rfss.connect(hostname, port);
+    //rfss.terminate();
 }
