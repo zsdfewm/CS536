@@ -20,9 +20,12 @@ class Server;
 class Rfss {
   public:
     std::vector<Client*> client_vec;
+    std::vector<std::thread *> server_thread;
+
     Server server;
     Client client;
 
+    std::thread *s_thread;
     // The constructor
     Rfss(char *, int);
 
@@ -30,7 +33,13 @@ class Rfss {
     void init();
 
     // connect to a host
-    void connect(char *, int port);  
+    void connect(char *, int port);
+
+    //terminate a given connection
+    void terminate(int);
+
+    //exit the application
+    void exit();
   
 };
 

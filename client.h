@@ -11,6 +11,7 @@
 #include <netdb.h> 
 #include <iostream>
 
+#include <errno.h>
 
 // The client class of rfss, each instance contains the information of the other
 // end of the socked and the socked descriptor.

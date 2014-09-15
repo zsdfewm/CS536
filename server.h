@@ -24,6 +24,7 @@ class ServerWorker {
 
     ServerWorker(int csFD);
     void swread();
+    void stop();
 
 
 };
@@ -35,12 +36,15 @@ class Server {
     bool stop;
     int port;
 
-    Server(): stop(false) {};
+    Server();
     std::vector<ServerWorker*> server_worker_vec;
     std::vector<std::thread *> server_worker_thread_vec;
 
     // init the serve;
     void init(int port);
+
+    // exit the server;
+    void exit();
 
     // Begin to listen the port and loop forever to accept new clients
     void svlisten();

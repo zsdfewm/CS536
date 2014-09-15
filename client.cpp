@@ -27,14 +27,14 @@ void Client::upload()
         cout << "ERROR opening socket" <<endl;
     //server = 
     
-    bzero((char *) &serv_addr, sizeof(serv_addr));
+    bzero((char *) &serv_addr, sizeof(struct sockaddr_in));
     serv_addr.sin_family = AF_INET;
     bcopy((char *)server->h_addr, 
          (char *)&serv_addr.sin_addr.s_addr,
          server->h_length);
     serv_addr.sin_port = htons(server_port);
-    if (connect(c_socketFD,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
-        cout << "ERROR connecting" <<endl;
+    if (connect(c_socketFD,(struct sockaddr *) &serv_addr,sizeof(struct sockaddr_in)) < 0) 
+        cout << "ERROR connecting" << endl << strerror(errno) <<endl;
     cout << "Please enter the message: " <<endl;
     bzero(buffer,512);
     fgets(buffer,511,stdin);
@@ -45,7 +45,7 @@ void Client::upload()
     len = read(c_socketFD,buffer,255);
     if (len < 0) 
          cout << "ERROR reading from socket" <<endl;
-    printf("%s\n",buffer);
+    cout << "The message is: " << buffer <<endl;
 }
 
 

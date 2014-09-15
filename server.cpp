@@ -1,12 +1,15 @@
 #include "server.h"
 
+#include <fcntl.h>
 using namespace std;
 //ServerWorker;
 
 ServerWorker::ServerWorker(int csFD) {
     client_socketFD=csFD;
 }
-
+void ServerWorker::stop() {
+    ::close(client_socketFD);
+}
 void ServerWorker::swread() {
     int len;
     //int n;
@@ -21,6 +24,10 @@ void ServerWorker::swread() {
     len = write(client_socketFD,"I got your message",18);
     if (len < 0)
 	cout << "ERROR writing to socket" <<endl;
+}
+
+Server::Server() {
+    stop=false;
 }
 void Server::init(int portno) {
     port = portno;
@@ -37,6 +44,7 @@ void Server::svlisten() {
     //cout << "Testing... Coming to svlisten()" << endl;
 
     s_socketFD = socket(AF_INET, SOCK_STREAM, 0);
+    fcntl(s_socketFD, F_SETFL, O_NONBLOCK);
     if(s_socketFD < 0){
 	cout << "ERROR Opening socket"<<endl;
     }
@@ -52,23 +60,38 @@ void Server::svlisten() {
     if ( bd < 0)
 	cout << "ERROR on binding"<<endl;
 
-    listen(s_socketFD, 12345);
+    listen(s_socketFD, 5);
+    cout << "Server is running" <<endl;
     clilen = sizeof(cli_addr);
+    //int counter=0;
     while(stop == false) {
 	// try to accept a client;
+        //counter++;
 	clisocketFD = accept(s_socketFD, (struct sockaddr *) & cli_addr, &clilen);
 	if (clisocketFD < 0) {
+          if (errno == EWOULDBLOCK) {
+          } else {
 	    cout << "ERROR on accept" <<endl;
-	}
-	ServerWorker *server_worker = new ServerWorker(clisocketFD);
-	std::thread *server_worker_thread = new thread(&ServerWorker::swread, server_worker);
-	server_worker_vec.push_back(server_worker);
-	server_worker_thread_vec.push_back(server_worker_thread);
-        server_worker->swread();
+          }
+	} else {
+	  ServerWorker *server_worker = new ServerWorker(clisocketFD);
+	  std::thread *server_worker_thread = new thread(&ServerWorker::swread, server_worker);
+	  server_worker_vec.push_back(server_worker);
+	  server_worker_thread_vec.push_back(server_worker_thread);
+        }
     }
-
     //when terminate is called
-    exit(0);  
+    cout<<"Server stops"<<endl;
+
+    for(ServerWorker *server_worker : server_worker_vec) {
+      server_worker->stop();
+    }
+    // release all sockets;
+    close(s_socketFD);
 }
+void Server::exit() {
+  this->stop = true;
+}
+
 
 /*******/
