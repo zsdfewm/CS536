@@ -10,8 +10,9 @@
 #include <sys/types.h>
 #include <netdb.h> 
 #include <iostream>
-
 #include <errno.h>
+#include <stdint.h>
+#include <limits>
 
 // The client class of rfss, each instance contains the information of the other
 // end of the socked and the socked descriptor.

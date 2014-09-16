@@ -8,6 +8,10 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <string>
+#include <unistd.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
+
 
 //#include "rfss.h"
 #include "client.h"
@@ -23,20 +27,25 @@ class Rfss {
     std::vector<std::thread *> server_thread;
 
     Server server;
-    Client client;
 
     std::thread *s_thread;
     // The constructor
-    Rfss(char *, int);
+    //Rfss(char *, int);
 
     // init the TCP server, and take control of the terminal
-    void init();
+    void init(char *, int);
 
     // connect to a host
     void connect(char *, int port);
 
+    void GetMyIp();
+
+    void ShowList();
+
     //terminate a given connection
     void terminate(int);
+
+    void GenerateFile(char* file_name, int file_size);
 
     //exit the application
     void exit();

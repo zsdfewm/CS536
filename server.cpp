@@ -13,14 +13,25 @@ void ServerWorker::stop() {
 void ServerWorker::swread() {
     int len;
     //int n;
-    char buffer[512];
+    char buff[512];
       
-    bzero(buffer,512);
+    bzero(buff,512);
     
-    len = read(client_socketFD,buffer,512);
+    len = read(client_socketFD,buff,512);
+    cout<<"Testing"<<endl;
+    for(int i=0; i<len; i++)
+    {
+	cout<<buff[i];
+	cout.flush();
+    }
+    cout<<endl;
+
+    string buffer(buff);
     if (len < 0) 
 	cout << "ERROR reading from socket" <<endl;
-    cout <<"Here is the message: " << buffer <<endl;
+    cout << "len = " <<len << endl;
+    printf("msg=%s\n",buff);
+    cout.flush();
     len = write(client_socketFD,"I got your message",18);
     if (len < 0)
 	cout << "ERROR writing to socket" <<endl;
