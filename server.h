@@ -36,10 +36,11 @@ class Server {
     bool stop;
     int port;
 
-    Server();
     std::vector<ServerWorker*> server_worker_vec;
     std::vector<std::thread *> server_worker_thread_vec;
+    std::vector<struct sockaddr *> cli_addr_vec;
 
+    Server();
     // init the serve;
     void init(int port);
 

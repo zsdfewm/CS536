@@ -13,7 +13,6 @@ void Client::init(char * hostname, int portno)
         fprintf(stderr,"ERROR, no such host\n");
         exit(0);
     }
-
     server_port = portno;
 }
 

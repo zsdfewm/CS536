@@ -40,6 +40,10 @@ void Rfss::connect(char * hostname, int port) {
     client_vec.push_back(cli);
     cli->upload();
     //cli->stop();
+
+    void * tmpAddrPtr = NULL;
+    tmpAddrPtr=&((cli->client_add).sin_addr);
+    cout << "Test..." << tmpAddrPtr <<endl;
 }
 
 /* terminate one connection with host */
@@ -107,28 +111,31 @@ void Rfss::ShowList() {
     void * tmpAddrPtr=NULL;
     //Client * c = client_vec.front();
     int j=1;
-/*
-    for(vector<Client *>::iterator i = client_vec.begin(); 
-	    i!=client_vec.end(); i++)
-    {
-	//cout << i << " : " << ;
-	tmpAddrPtr=&(c->client_add.sin_addr);
 
-	cout << "Test..." << tmpAddrPtr <<endl;
+    for(Client *c : client_vec)
+    {
+	tmpAddrPtr = c->server->h_addr;
+	char addressBuffer[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+	cout << j << " : " <<addressBuffer<<endl;
+	j++;
+    }
+
+    cout << "Test... As a server is connected to " << server.cli_addr_vec.size() << " client(s)" <<endl;
+
+    for(struct sockaddr *caddr : server.cli_addr_vec)
+    {
+	tmpAddrPtr=&((struct sockaddr_in *)caddr)->sin_addr.s_addr;
+	cout << "!!!2Test ..." << tmpAddrPtr <<endl;
 
         char addressBuffer[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
         //printf("IPv4 %s IP Address %s\n", ifa->ifa_name, addressBuffer);
-	//cout << i << " : " << addressBuffer <<endl;
-	printf("%d : %s\n", j, addressBuffer);
+	cout << j << " : " <<addressBuffer<<endl;
 	j++;
     }
-*/
+/**/
 
-    cout<<"size ="<<client_vec.size()<<endl;
-    for(Client *c : client_vec) {
-	cout<<&(c->client_add).sin_addr;
-    }
 }
 
 void Rfss::GenerateFile(char* file_name, int file_size) {

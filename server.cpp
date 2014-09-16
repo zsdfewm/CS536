@@ -79,16 +79,28 @@ void Server::svlisten() {
 	// try to accept a client;
         //counter++;
 	clisocketFD = accept(s_socketFD, (struct sockaddr *) & cli_addr, &clilen);
+
 	if (clisocketFD < 0) {
-          if (errno == EWOULDBLOCK) {
-          } else {
-	    cout << "ERROR on accept" <<endl;
-          }
+            if (errno == EWOULDBLOCK) {
+            } else {
+	        cout << "ERROR on accept" <<endl;
+            }
 	} else {
-	  ServerWorker *server_worker = new ServerWorker(clisocketFD);
-	  std::thread *server_worker_thread = new thread(&ServerWorker::swread, server_worker);
-	  server_worker_vec.push_back(server_worker);
-	  server_worker_thread_vec.push_back(server_worker_thread);
+
+	    //cout << "Testing..." <<
+
+	    struct sockaddr *c_addr = new(struct sockaddr);
+	    bcopy((struct sockaddr *) & cli_addr, (struct sockaddr *) c_addr, clilen);
+	    cli_addr_vec.push_back(c_addr);
+
+	    //tmpAddrPtr=&((struct sockaddr_in *)caddr)->sin_addr.s_addr;
+	    cout << "!!!0Test ..." << cli_addr.sin_addr.s_addr <<endl;
+	    cout << "!!!1Test ..." << &((struct sockaddr_in *)c_addr)->sin_addr.s_addr <<endl;
+
+	    ServerWorker *server_worker = new ServerWorker(clisocketFD);
+	    std::thread *server_worker_thread = new thread(&ServerWorker::swread, server_worker);
+	    server_worker_vec.push_back(server_worker);
+	    server_worker_thread_vec.push_back(server_worker_thread);
         }
     }
     //when terminate is called
