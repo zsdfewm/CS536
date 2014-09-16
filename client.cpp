@@ -42,7 +42,7 @@ void Client::upload()
 
     cin >> buffer;
     cout << "Testing... " << buffer <<endl;
-    char *buff = new char[buffer.size()+1];
+    char *buff = new char[512];
     buff[buffer.size()]=0;
     memcpy(buff, buffer.c_str(), buffer.size());
 
@@ -50,8 +50,8 @@ void Client::upload()
     len = write(c_socketFD,buff,buffer.size()+1);
     if (len < 0) 
          cout << "ERROR writing to socket" <<endl;
-    bzero(buff,256);
-    len = read(c_socketFD,buff,255);
+    bzero(buff,512);
+    len = read(c_socketFD,buff,511);
     if (len < 0) 
          cout << "ERROR reading from socket" <<endl;
     cout << "The message is: " << buff <<endl;
