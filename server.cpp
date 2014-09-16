@@ -18,7 +18,7 @@ void ServerWorker::swread() {
     bzero(buff,512);
     
     len = read(client_socketFD,buff,512);
-    cout<<"Testing"<<endl;
+    //cout<<"Testing"<<endl;
     for(int i=0; i<len; i++)
     {
 	cout<<buff[i];
@@ -94,8 +94,8 @@ void Server::svlisten() {
 	    cli_addr_vec.push_back(c_addr);
 
 	    //tmpAddrPtr=&((struct sockaddr_in *)caddr)->sin_addr.s_addr;
-	    cout << "!!!0Test ..." << cli_addr.sin_addr.s_addr <<endl;
-	    cout << "!!!1Test ..." << &((struct sockaddr_in *)c_addr)->sin_addr.s_addr <<endl;
+	    //cout << "!!!0Test ..." << cli_addr.sin_addr.s_addr <<endl;
+	    //cout << "!!!1Test ..." << &((struct sockaddr_in *)c_addr)->sin_addr.s_addr <<endl;
 
 	    ServerWorker *server_worker = new ServerWorker(clisocketFD);
 	    std::thread *server_worker_thread = new thread(&ServerWorker::swread, server_worker);

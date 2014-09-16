@@ -7,6 +7,7 @@ using namespace std;
 // Initialize the client to the server;
 void Client::init(char * hostname, int portno)
 {
+    cout << "Test... hostname" << hostname <<endl;
     
     server = gethostbyname(hostname);
     if (server == NULL) {
@@ -40,7 +41,7 @@ void Client::upload()
     cout << "Please enter the message: " <<endl;  
 
     cin >> buffer;
-    cout << "Testing... " << buffer <<endl;
+    //cout << "Testing... " << buffer <<endl;
     char *buff = new char[512];
     buff[buffer.size()]=0;
     memcpy(buff, buffer.c_str(), buffer.size());

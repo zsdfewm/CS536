@@ -31,6 +31,7 @@ void Rfss::init(char * hostname, int port) {
 }
 
 // Connected to a host;
+// When connect for the second time, error raises!!!
 void Rfss::connect(char * hostname, int port) {
     Client *cli = new Client();
     cli->init(hostname, port);
@@ -43,7 +44,7 @@ void Rfss::connect(char * hostname, int port) {
 
     void * tmpAddrPtr = NULL;
     tmpAddrPtr=&((cli->client_add).sin_addr);
-    cout << "Test..." << tmpAddrPtr <<endl;
+    //cout << "Test..." << tmpAddrPtr <<endl;
 }
 
 /* terminate one connection with host */
@@ -88,7 +89,7 @@ void Rfss::GetMyIp() {
 	    //cout << ifa->ifa_name << " equal to AF_INET" << endl;
 
             tmpAddrPtr=&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
-	    cout << "Test ..." << tmpAddrPtr <<endl;
+	    //cout << "Test ..." << tmpAddrPtr <<endl;
 
             char addressBuffer[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
@@ -126,7 +127,7 @@ void Rfss::ShowList() {
     for(struct sockaddr *caddr : server.cli_addr_vec)
     {
 	tmpAddrPtr=&((struct sockaddr_in *)caddr)->sin_addr.s_addr;
-	cout << "!!!2Test ..." << tmpAddrPtr <<endl;
+	//cout << "!!!2Test ..." << tmpAddrPtr <<endl;
 
         char addressBuffer[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);

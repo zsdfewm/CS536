@@ -130,6 +130,7 @@ int main(int argc, char * * argv)
 	    opt[c_hostname.size()] = '\0';
 
 	    rfss.connect(hostname, c_port);
+	    delete[] hostname;
             //return EXIT_SUCCESS;
         }
         if (showList) {
