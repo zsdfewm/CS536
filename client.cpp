@@ -22,7 +22,10 @@ void Client::ConnectServer()
 {
     struct sockaddr_in serv_addr;
     //char buffer[512];
-    string buffer;
+    //string buffer;
+    //bzero(buffer,100); 
+    string buffer("Hello!!! The connection is established!");
+    //str.copy(buffer, 199, 0);
     int len;
 
     c_socketFD = socket(AF_INET, SOCK_STREAM, 0);
@@ -38,11 +41,11 @@ void Client::ConnectServer()
     serv_addr.sin_port = htons(server_port);
     if (connect(c_socketFD,(struct sockaddr *) &serv_addr,sizeof(struct sockaddr_in)) < 0) 
         cout << "ERROR connecting" << endl << strerror(errno) <<endl;
-    cout << "Please enter the message: " <<endl;  
+    //cout << "Please enter the message: " <<endl;  
 
-    cin >> buffer;
+    //cin >> buffer;
     //cout << "Testing... " << buffer <<endl;
-    char *buff = new char[512];
+    char *buff = new char[100];
     buff[buffer.size()]=0;
     memcpy(buff, buffer.c_str(), buffer.size());
 
@@ -50,11 +53,11 @@ void Client::ConnectServer()
     len = write(c_socketFD,buff,buffer.size()+1);
     if (len < 0) 
          cout << "ERROR writing to socket" <<endl;
-    bzero(buff,512);
-    len = read(c_socketFD,buff,511);
+    bzero(buff,100);
+    len = read(c_socketFD,buff,99);
     if (len < 0) 
          cout << "ERROR reading from socket" <<endl;
-    cout << "The message is: " << buff <<endl;
+    cout << "The message is: " << buffer <<endl;
 }
 
 

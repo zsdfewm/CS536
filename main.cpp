@@ -25,6 +25,9 @@ int main(int argc, char * * argv)
     string c_hostname;
     int c_port;
 
+    string filename;
+    int con_id;
+
     //int i=0;
 
     Rfss rfss;
