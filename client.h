@@ -28,7 +28,7 @@ class Client {
     void init(char *, int);
 
     // Upload the file to the server;
-    void upload();
+    void ConnectServer();
 
     // Stop the connection to the server;
     void stop();

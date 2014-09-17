@@ -39,7 +39,7 @@ void Rfss::connect(char * hostname, int port) {
     //client.init(hostname, port);
     //if (cli->connect()) {
     client_vec.push_back(cli);
-    cli->upload();
+    cli->ConnectServer();
     //cli->stop();
 
     void * tmpAddrPtr = NULL;

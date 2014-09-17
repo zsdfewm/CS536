@@ -18,7 +18,7 @@ void Client::init(char * hostname, int portno)
 }
 
 // Upload the file to the server;
-void Client::upload()
+void Client::ConnectServer()
 {
     struct sockaddr_in serv_addr;
     //char buffer[512];
