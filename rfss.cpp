@@ -166,7 +166,11 @@ void Rfss::ShowList() {
 }
 
 void Rfss::Upload(int dest, const string& filename) {
-  socket_pool->client_pool[dest]->SendFile(filename);
+  if (dest <= 0 || dest >  socket_pool->client_pool.size() ) {
+    printf("Connectiong ID error: %d in [1, %d]\n", dest, socket_pool->client_pool.size());
+  }
+  socket_pool->client_pool[dest-1]->SendFile(filename);
+
 }
 void Rfss::GenerateFile(const string& file_name, int file_size) {
   int result = mkdir("./upload", 0777);

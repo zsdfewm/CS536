@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <limits>
 #include <fcntl.h>
+#include <sys/time.h>
 
 #include"client.h"
 
@@ -48,6 +49,8 @@ void Client::Run() {
   int filesize;
   int written_size;
   char filename[1000];
+  struct timeval tv_start, tv_now;
+  double time_elapsed;
 
   printf("socket %x running\n", socketFD);
   while(stop == false) {
@@ -85,18 +88,26 @@ void Client::Run() {
           int result = mkdir("./upload", 0777);
           fp = fopen(filename, "w");
           written_size = 0;
+          gettimeofday(&tv_start, NULL);
         } else if (status == STATUS_BUSY) {
           if (written_size + PACKAGE_SIZE < filesize) {
             if (len != fwrite(buff, sizeof(char), len, fp)) {
               printf("Local file written error");
             } else {
               written_size += len;
+              gettimeofday(&tv_now,, NULL);
+              time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
+                  (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
+              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_len, time_elapsed);
             }
           } else {
             if (filesize - written_size != fwrite(buff, sizeof(char), filesize - written_size, fp)) {
               printf("Local file written error");
             } else {
               written_size = filesize;
+              time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
+                  (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
+              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_len, time_elapsed);
               fclose(fp);
               status = STATUS_IDLE;
             }
@@ -139,12 +150,19 @@ bool Client::SendFile(const string& file_name) {
   c_filename[filename.size()] = 0;
   int filesize;
   FILE *fp = fopen(c_filename, "r");
+  if (fp == NULL) {
+    printf("Can not open file: %s.\n", c_filename);
+    return false;
+  }
   fseek(fp, 0, SEEK_END);
   filesize = ftell(fp);
   fseek(fp, 0, SEEK_SET);
   printf("reading file %s, size = %d\n", c_filename, filesize);
   char buff[PACKAGE_SIZE];
+  struct timeval tv_start, tv_now;
+  double time_elapsed;
 
+  gettimeofday(&tv_start, NULL);
 // 1: send magic number#1+filesize+filename
   size_t l=0;
   size_t i=0;
@@ -172,10 +190,16 @@ bool Client::SendFile(const string& file_name) {
     return false;
   }
 // 2: send file contents
+  int written_len = 0;
   int read_len;
   while ((read_len = fread(buff, sizeof(char), PACKAGE_SIZE, fp)) > 0) {
     padding(buff, read_len);
     Send(buff, PACKAGE_SIZE);
+    gettimeofday(&tv_now, NULL);
+    written_len += read_len;
+    time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
+                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
+    printf("\rSend %d Bytes in %.5f Sec", written_len, time_elapsed);
   }
 // 3: send magic number#2
 /*
