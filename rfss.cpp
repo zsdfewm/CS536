@@ -20,18 +20,6 @@
 
 using namespace std;
 
-/*
-Rfss::Rfss(char * hostname, int port) {
-    //Client *cli = new Client();
-    //cli->init(hostname, port);
-    client.init(hostname, port);
-    server.init(port);	//serverpart
-
-    cout << "test... " << hostname <<endl;
-    cout << "test... " << port <<endl;
-}
-*/
-/**/
 void Rfss::Init(char * hostname, int port) {
     //client.init(hostname, port);
     host_name = hostname;
@@ -40,13 +28,9 @@ void Rfss::Init(char * hostname, int port) {
     server = new Server(socket_pool, port);	//serverpart
     // Let the server begin to listen
     s_thread = new thread(&Server::svlisten, server);	//serverpart
-    // Give the server 3 second to prepare
-    sleep(3);
+    // Give the server 2 second to prepare
+    sleep(2);
     socket_pool->RunDaemonThread();
-    // Take control of terminal
-
-    //cout << "test... before join..." <<endl;
-    //server_thread.join();	//serverpart
 }
 
 // Connected to a host;
@@ -91,8 +75,8 @@ void Rfss::Terminate(int dest) {
 
 /* terminate all connections and exit the process */
 void Rfss::Stop(){
-    cout<<"sleep for 3 sec"<<endl;
-    sleep(3);
+    cout<<"Shutdown after 2 seconds" << endl;
+    sleep(2);
     server->Stop();
     s_thread->join();
     socket_pool->Stop();

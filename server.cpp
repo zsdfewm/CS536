@@ -30,9 +30,6 @@ void Server::svlisten() {
     int clisocketFD;
     socklen_t clilen;
     struct sockaddr_in serv_addr, cli_addr;
-
-    //cout << "Testing... Coming to svlisten()" << endl;
-
     s_socketFD = socket(AF_INET, SOCK_STREAM, 0);
     fcntl(s_socketFD, F_SETFL, O_NONBLOCK);
     if(s_socketFD < 0){
@@ -51,33 +48,25 @@ void Server::svlisten() {
 	cout << "ERROR on binding"<<endl;
 
     listen(s_socketFD, 5);
-    cout << "Server is running on: " << port <<endl;
+//    cout << "Server is running on: " << port <<endl;
     clilen = sizeof(cli_addr);
-    //int counter=0;
     while(stop == false) {
 	// try to accept a client;
-        //counter++;
 	clisocketFD = accept(s_socketFD, (struct sockaddr *)&cli_addr, &clilen);
 
 	if (clisocketFD < 0) {
             if (errno == EWOULDBLOCK) {
             } else {
-//sleep(1);
-//  printf("%x, stop = %d\n", this, stop);
 	        cout << "ERROR on accept" <<endl;
             }
 	} else {
-           cout << "haa, got one!" << endl;
+//           cout << "haa, got one!" << endl;
            if (!socket_pool->AddClient(clisocketFD)) {
              cout << "Server socket pool full, closing the socket." << endl;
              close(clisocketFD);
            }
         }
     }
-//    exit(-1);
-//    printf("Stops!!!!!\n");
-//    fflush(stdout);
-    //when terminate is called
     cout<<"Server stops"<<endl;
 
     // release server sockets;
@@ -85,8 +74,4 @@ void Server::svlisten() {
 }
 void Server::Stop() {
   this->stop = true;
-//  printf("%x, stop = %d\n", this, stop);
 }
-
-
-/*******/

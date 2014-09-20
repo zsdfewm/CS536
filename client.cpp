@@ -64,9 +64,7 @@ void Client::Run() {
   struct timeval tv_start, tv_now;
   double time_elapsed;
 
-  printf("socket %x running\n", socketFD);
   while(stop == false) {
-//    printf("trying reading socket %x \n", socketFD);
     len = read(socketFD, buff, PACKAGE_SIZE);
     if (len == -1) {
 //      printf("errno = %x\n", errno);
@@ -135,13 +133,12 @@ void Client::Run() {
           }
         }
       } else {
-//        printf("len == 0 \n");
-        cout << "Length 0 message (closed channel?)" << endl;
+//        cout << "Length 0 message (closed channel?)" << endl;
         break;
       }
     }
   }
-  printf("socket %x closed\n", socketFD);
+//  printf("socket %x closed\n", socketFD);
   close(socketFD);
   dead = true;
 }
@@ -262,11 +259,11 @@ int Client::Connect(char* hostname, int portno) {
               sizeof(struct sockaddr_in)) < 0) {
     cout << "ERROR connecting" << endl << strerror(errno) <<endl;
   }
-  char buff[100] = "hello channel\n";
-  int len = write(c_socketFD, buff, 20);
-  if (len < 0) {
-    cout << "ERROR writing to socket" <<endl;
-  }
+//  char buff[100] = "hello channel\n";
+//  int len = write(c_socketFD, buff, 20);
+//  if (len < 0) {
+//    cout << "ERROR writing to socket" <<endl;
+//  }
   return c_socketFD;
 }
 
