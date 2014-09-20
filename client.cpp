@@ -183,8 +183,8 @@ bool Client::SendFile(const string& file_name) {
     Send(buff, read_len);
   }
 // 3: send magic number#2
-  size_t l=0;
-  size_t i=0;
+  l=0;
+  i=0;
   while( i < MAGIC_SIZE ) {
     buff[l++] = kMagicNumber2[i++];
   }
