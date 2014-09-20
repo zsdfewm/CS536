@@ -15,17 +15,33 @@ SocketPool::SocketPool() {
 
 void SocketPool::Stop() {
   stop = true;
+  pthread_mutex_lock(&pool_mutex);
   for(Client *client : client_pool) {
     client->Stop();
     client->client_thread->join();
   }
+  pthread_mutex_unlock(&pool_mutex);
   daemon_thread->join();
 }
 
 
-// Returns true when the client is successfully
-// Then the caller will initialize the thread
+bool SocketPool::DupCheck(const string& peer_name) {
+  pthread_mutex_lock(&pool_mutex);
+  for(Client *client : client_pool) {
+    if (client->peer_name.compare(peer_name) == 0 ) {
+       pthread_mutex_unlock(&pool_mutex);
+      return true;
+    }
+  }
+  pthread_mutex_unlock(&pool_mutex);
+  return false;
+}
+// Returns true when the client is successfully add and the thread is running.
 bool SocketPool::AddClient(int clisocketFD) {
+  if (client_pool.size() >= SOCKET_POOL_SIZE) {
+    cout << "socket pool full, reject the connection" << endl;
+    return false;
+  }
   pthread_mutex_lock(&pool_mutex);
   Client *client = new Client(clisocketFD);
   client_pool.push_back(client);
@@ -35,7 +51,9 @@ bool SocketPool::AddClient(int clisocketFD) {
 }
 
 void SocketPool::PrintList() {
+  int counter = 0;
   for (Client *client : client_pool) {
+    cout << ++counter << " : ";
     client->PrintInfo();
   }
 }
@@ -56,12 +74,14 @@ void SocketPool::DaemonThread() {
       client = *iter;
       if (client->dead) {
         iter = client_pool.erase(iter);
+        cout << "remove connection with: " << client->peer_name << endl;
+        delete client;
       } else {
         ++iter;
       }
     }
 //    printf("Checking channel status...done\n");
     pthread_mutex_unlock(&pool_mutex);
-    sleep(5);
+    sleep(1);
   }
 }

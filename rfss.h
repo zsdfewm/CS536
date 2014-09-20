@@ -17,29 +17,28 @@ class Rfss {
     
     SocketPool *socket_pool;
     Server *server;
-
+    string host_name;
     thread *s_thread;
     // The constructor
     //Rfss(char *, int);
 
     // init the TCP server, and take control of the terminal
-    void init(char *, int);
+    void Init(char *, int);
 
     // connect to a host
-    void connect(const string&, int port);
+    void Connect(const string&, int port);
 
     void GetMyIp();
 
     void ShowList();
 
     //terminate a given connection
-    void terminate(int);
+    void Terminate(int);
     void Upload(int dest, const string& filename);
     void GenerateFile(const string& filename, int file_size);
 
     //exit the application
-    void Stop();
-  
+    void Stop();  
 };
 
 

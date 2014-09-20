@@ -16,36 +16,6 @@
 #include "socket_pool.h"
 
 using namespace std;
-//ServerWorker;
-
-/*
-ServerWorker::ServerWorker(int csFD) {
-    client_socketFD=csFD;
-}
-vd ServerWorker::stop() {
-    ::close(client_socketFD);
-}
-void ServerWorker::swread() {
-    int len;
-    //int n;
-    char buff[100];
-      
-    bzero(buff,100);
-    
-    len = read(client_socketFD,buff,100);
-    //cout<<"Testing"<<endl;
-
-    //string buffer(buff);
-    if (len < 0) 
-	cout << "ERROR reading from socket" <<endl;
-    cout << "len = " <<len << endl;
-    printf("msg=%s\n",buff);
-    cout.flush();
-    len = write(client_socketFD,"I got your message",18);
-    if (len < 0)
-	cout << "ERROR writing to socket" <<endl;
-}
-*/
 
 Server::Server(SocketPool *socket_pool_p, int portno) {;
     socket_pool = socket_pool_p;
@@ -92,13 +62,21 @@ void Server::svlisten() {
 	if (clisocketFD < 0) {
             if (errno == EWOULDBLOCK) {
             } else {
+//sleep(1);
+//  printf("%x, stop = %d\n", this, stop);
 	        cout << "ERROR on accept" <<endl;
             }
 	} else {
            cout << "haa, got one!" << endl;
-            socket_pool->AddClient(clisocketFD);
+           if (!socket_pool->AddClient(clisocketFD)) {
+             cout << "Server socket pool full, closing the socket." << endl;
+             close(clisocketFD);
+           }
         }
     }
+//    exit(-1);
+//    printf("Stops!!!!!\n");
+//    fflush(stdout);
     //when terminate is called
     cout<<"Server stops"<<endl;
 
@@ -107,6 +85,7 @@ void Server::svlisten() {
 }
 void Server::Stop() {
   this->stop = true;
+//  printf("%x, stop = %d\n", this, stop);
 }
 
 

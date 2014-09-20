@@ -38,8 +38,12 @@ int main(int argc, char * * argv)
 	cout << "Missing element from the command!" <<endl;
 	return EXIT_FAILURE;
     }
+    char c_hostname[1024];
+    c_hostname[1023] = 0;
+    gethostname(c_hostname, 1023);
     int port_num = atoi(argv[1]);
-    rfss.init("localhost", port_num); 
+    printf("localhost name: %s\n", c_hostname);
+    rfss.Init("localhost", port_num); 
     cout << "Please input your option... Type help for assistance..." <<endl;
 
     string option;
@@ -129,7 +133,7 @@ int main(int argc, char * * argv)
 	    portConnect = false;
 	    cin >> hostname;
 	    cin >> port;
-	    rfss.connect(hostname, port);
+	    rfss.Connect(hostname, port);
             //return EXIT_SUCCESS;
         }
         if (showList) {
@@ -138,6 +142,8 @@ int main(int argc, char * * argv)
             //return EXIT_SUCCESS;
         }
         if (conTerminate) {
+            cin >> con_id;
+            rfss.Terminate(con_id);
 	    conTerminate = false;
             //return EXIT_SUCCESS;
         }

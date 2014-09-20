@@ -32,8 +32,9 @@ Rfss::Rfss(char * hostname, int port) {
 }
 */
 /**/
-void Rfss::init(char * hostname, int port) {
+void Rfss::Init(char * hostname, int port) {
     //client.init(hostname, port);
+    host_name = hostname;
     socket_pool = new SocketPool();
     cout << "tryint server on: "<< port << endl;
     server = new Server(socket_pool, port);	//serverpart
@@ -50,35 +51,42 @@ void Rfss::init(char * hostname, int port) {
 
 // Connected to a host;
 // When connect for the second time, error raises!!!
-void Rfss::connect(const string& hostname_str, int port) {
+void Rfss::Connect(const string& hostname_str, int port) {
+
+   if (host_name.compare(hostname_str) == 0 ) {
+     cout << "Can not connect with self." << endl;
+     return;
+   }
+
+   if (socket_pool->DupCheck(hostname_str)) {
+     cout << "Already connected with: " << hostname_str << endl;
+     return;
+   }
+   cout << "socket_pool_size" << SOCKET_POOL_SIZE << endl;
+   if (socket_pool->client_pool.size() >= SOCKET_POOL_SIZE) {
+     cout << "socket pool full, no connection created." << endl;
+     return;
+   }
    char *hostname = new char[hostname_str.size()+1];
    memcpy(hostname, hostname_str.c_str(), hostname_str.size());
    hostname[hostname_str.size()] = '\0';
-
    int socketFD = Client::Connect(hostname, port);
-   socket_pool->AddClient(socketFD);
-
    delete[] hostname;
-//    Client *cli = new Client();
-//    cli->init(hostname, port);
-//    cout<<"Connect to " << hostname << " on Port "<<port <<endl;
-    //client.init(hostname, port);
-    //if (cli->connect()) {
-//    client_vec.push_back(cli);
-//    cli->ConnectServer();
-    //cli->stop();
-
-//    void * tmpAddrPtr = NULL;
-//    tmpAddrPtr=&((cli->client_add).sin_addr);
-    //cout << "Test..." << tmpAddrPtr <<endl;
+   if (!socket_pool->AddClient(socketFD)) {
+     cout << "socket pool full, close the connection." << endl;
+     close(socketFD);
+   }
+   return;
 }
 
 /* terminate one connection with host */
-void Rfss::terminate(int connect_id) {
-//    Client *cli = client_vec[connect_id-1];
-//    cli->stop();
-//    delete cli;
-//    client_vec.erase(client_vec.begin()+connect_id-1);
+void Rfss::Terminate(int dest) {
+  if (dest <= 0 || dest >  socket_pool->client_pool.size() ) {
+    printf("Connectiong ID error: %d in [1, %d]\n", dest, socket_pool->client_pool.size());
+  }
+  socket_pool->client_pool[dest-1]->Stop();
+  socket_pool->client_pool[dest-1]->client_thread->join();
+  socket_pool->client_pool.erase(socket_pool->client_pool.begin()+dest-1);
 }
 
 /* terminate all connections and exit the process */
@@ -133,36 +141,6 @@ void Rfss::GetMyIp() {
 
 void Rfss::ShowList() {
   socket_pool->PrintList();
-/*
-    //unsigned int i=0;
-    void * tmpAddrPtr=NULL;
-    //Client * c = client_vec.front();
-    int j=1;
-
-    for(Client *c : client_vec)
-    {
-	tmpAddrPtr = c->server->h_addr;
-	char addressBuffer[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
-	cout << j << " : " <<addressBuffer<<endl;
-	j++;
-    }
-
-    cout << "Test... As a server is connected to " << server.cli_addr_vec.size() << " client(s)" <<endl;
-
-    for(struct sockaddr *caddr : server.cli_addr_vec)
-    {
-	tmpAddrPtr=&((struct sockaddr_in *)caddr)->sin_addr.s_addr;
-	//cout << "!!!2Test ..." << tmpAddrPtr <<endl;
-
-        char addressBuffer[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
-        //printf("IPv4 %s IP Address %s\n", ifa->ifa_name, addressBuffer);
-	cout << j << " : " <<addressBuffer<<endl;
-	j++;
-    }
-*/
-
 }
 
 void Rfss::Upload(int dest, const string& filename) {

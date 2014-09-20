@@ -6,6 +6,7 @@
 #include <vector>
 #include <thread>
 
+#define SOCKET_POOL_SIZE 5
 using namespace std;
 class Client;
 
@@ -22,6 +23,8 @@ class SocketPool{
 
   void DaemonThread();
   void RunDaemonThread();
+  
+  bool DupCheck(const string& peer_name);
 
   bool stop;
   vector<Client*> client_pool;

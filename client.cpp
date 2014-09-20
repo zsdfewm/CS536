@@ -31,7 +31,20 @@ Client::Client(int socketFD_p) {
   socketFD = socketFD_p;
   stop = false;
   dead = false;
+  struct sockaddr addr;
+  socklen_t addrlen = sizeof(addr);
+  getpeername(socketFD, &addr, &addrlen);
+
+  char host[NI_MAXHOST];
+  char serv[NI_MAXSERV];
+  gethostname(host, NI_MAXHOST);
+  host_name = host;
+  getnameinfo(&addr, addrlen, host, sizeof(host), serv, sizeof(serv), 0);
+//  printf("host = %s, serv = %s\n", host, serv);
   fcntl(socketFD, F_SETFL, O_NONBLOCK);
+  peer_name = host;
+  getnameinfo(&addr, addrlen, host, sizeof(host), serv, sizeof(serv), NI_NUMERICHOST);
+  peer_ip = host;
 }
 
 Client::~Client() {
@@ -87,18 +100,22 @@ void Client::Run() {
           printf("waiting for file %s, size=%d\n", filename, filesize);
           int result = mkdir("./upload", 0777);
           fp = fopen(filename, "w");
+          if (fp == NULL) {
+            printf("Rx: Can not open local file: %s\n", filename);
+            continue;
+          }
           written_size = 0;
           gettimeofday(&tv_start, NULL);
         } else if (status == STATUS_BUSY) {
           if (written_size + PACKAGE_SIZE < filesize) {
             if (len != fwrite(buff, sizeof(char), len, fp)) {
-              printf("Local file written error");
+              printf("Rx: Error write local file: %s\n", filename);
             } else {
               written_size += len;
-              gettimeofday(&tv_now,, NULL);
+              gettimeofday(&tv_now, NULL);
               time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
-              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_len, time_elapsed);
+//              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_size, time_elapsed);
             }
           } else {
             if (filesize - written_size != fwrite(buff, sizeof(char), filesize - written_size, fp)) {
@@ -107,7 +124,12 @@ void Client::Run() {
               written_size = filesize;
               time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
-              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_len, time_elapsed);
+//              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_size, time_elapsed);
+              cout << "Rx(" << host_name << "):";
+              cout << peer_name << "->" << host_name;
+              cout << "File size: " << written_size << "Bytes, ";
+              cout << "Time taken: " << time_elapsed << "Sec, ";
+              cout << "Rx rate: " << written_size/time_elapsed << "BPS" << endl;
               fclose(fp);
               status = STATUS_IDLE;
             }
@@ -185,37 +207,34 @@ bool Client::SendFile(const string& file_name) {
   printf("\n");
   padding(buff, l);
   if (!Send(buff, PACKAGE_SIZE)) {
-    printf("Sending MagicNumber 1 error.\n");
+    printf("Initializing file transmittion error.\n");
     fclose(fp);
     return false;
   }
 // 2: send file contents
-  int written_len = 0;
+  int written_size = 0;
   int read_len;
   while ((read_len = fread(buff, sizeof(char), PACKAGE_SIZE, fp)) > 0) {
     padding(buff, read_len);
     Send(buff, PACKAGE_SIZE);
     gettimeofday(&tv_now, NULL);
-    written_len += read_len;
+    written_size += read_len;
     time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
                    (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
-    printf("\rSend %d Bytes in %.5f Sec", written_len, time_elapsed);
+//    printf("\rSend %d Bytes in %.5f Sec", written_size, time_elapsed);
   }
-// 3: send magic number#2
-/*
-  l=0;
-  i=0;
-  while( i < MAGIC_SIZE ) {
-    buff[l++] = kMagicNumber2[i++];
-  }
-  padding(buff, l);
-  Send(buff, PACKAGE_SIZE);
+  cout << "Tx(" << host_name << "):";
+  cout << host_name << "->" << peer_name;
+  cout << "File size: " << written_size << "Bytes, ";
+  cout << "Time taken: " << time_elapsed << "Sec, ";
+  cout << "Tx rate: " << written_size/time_elapsed << "Bps" << endl;
+  fclose(fp);
   return true;
-*/
 }
 
 void Client::PrintInfo() {
-  cout << "dummy info" << endl;
+//  cout << "dummy info" << endl;
+  cout << peer_name << " : " << peer_ip << endl; 
 }
 
 
@@ -252,69 +271,3 @@ int Client::Connect(char* hostname, int portno) {
   return c_socketFD;
 }
 
-/*
-//std::numeric_limits<int32_t>::max();
-
-// Initialize the client to the server;
-void Client::init(char * hostname, int portno)
-{
-    cout << "Test... hostname" << hostname <<endl;
-    
-    server = gethostbyname(hostname);
-    if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
-        exit(0);
-    }
-    server_port = portno;
-}
-
-// Upload the file to the server;
-void Client::ConnectServer()
-{
-    struct sockaddr_in serv_addr;
-    //char buffer[512];
-    //string buffer;
-    //bzero(buffer,100); 
-    string buffer("Hello!!! The connection is established!");
-    //str.copy(buffer, 199, 0);
-    int len;
-
-    c_socketFD = socket(AF_INET, SOCK_STREAM, 0);
-    if (c_socketFD < 0) 
-        cout << "ERROR opening socket" <<endl;
-    //server = 
-    
-    bzero((char *) &serv_addr, sizeof(struct sockaddr_in));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, 
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(server_port);
-    if (connect(c_socketFD,(struct sockaddr *) &serv_addr,sizeof(struct sockaddr_in)) < 0) 
-        cout << "ERROR connecting" << endl << strerror(errno) <<endl;
-    //cout << "Please enter the message: " <<endl;  
-
-    //cin >> buffer;
-    //cout << "Testing... " << buffer <<endl;
-    char *buff = new char[100];
-    buff[buffer.size()]=0;
-    memcpy(buff, buffer.c_str(), buffer.size());
-
-
-    len = write(c_socketFD,buff,buffer.size()+1);
-    if (len < 0) 
-         cout << "ERROR writing to socket" <<endl;
-    bzero(buff,100);
-    len = read(c_socketFD,buff,99);
-    if (len < 0) 
-         cout << "ERROR reading from socket" <<endl;
-    cout << "The message is: " << buffer <<endl;
-}
-
-// Stop the connection to the server;
-void Client::stop()
-{
-    close(c_socketFD);
-}
-
-*/

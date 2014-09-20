@@ -30,10 +30,9 @@ class Client {
     bool stop;
     bool dead;
     thread *client_thread;
-    string local_name;
-    int local_port;
+    string host_name;
     string peer_name;
-    int peer_port;
+    string peer_ip;
 //    struct hostent *peer_host;
 //    struct sockaddr_in peer_add;
     int socketFD;
