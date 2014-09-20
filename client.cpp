@@ -59,6 +59,7 @@ void Client::Run() {
       }
     } else {
       if (len != 0) {
+        printf("message len = %d\n", len);
         if (status == STATUS_IDLE) {
           buff[len]=0;
           printf("Got message: %s\n", buff);
