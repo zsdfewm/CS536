@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <vector>
 #include <thread>
-
+#include <unistd.h>
 #include "socket_pool.h"
 #include "client.h"
 
@@ -45,6 +45,8 @@ bool SocketPool::AddClient(int clisocketFD) {
   pthread_mutex_lock(&pool_mutex);
   Client *client = new Client(clisocketFD);
   client_pool.push_back(client);
+  cout << "New connection with : ";
+  client->PrintInfo();
   client->client_thread = new thread(&Client::Run, client);
   pthread_mutex_unlock(&pool_mutex);
   return true;
@@ -82,6 +84,6 @@ void SocketPool::DaemonThread() {
     }
 //    printf("Checking channel status...done\n");
     pthread_mutex_unlock(&pool_mutex);
-    sleep(1);
+    usleep(1000);
   }
 }

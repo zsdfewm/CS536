@@ -65,7 +65,7 @@ void Client::Run() {
   double time_elapsed;
 
   while(stop == false) {
-    len = read(socketFD, buff, PACKAGE_SIZE);
+    len = recv(socketFD, buff, PACKAGE_SIZE, 0);
     if (len == -1) {
 //      printf("errno = %x\n", errno);
       if (errno != EWOULDBLOCK) {
@@ -94,7 +94,7 @@ void Client::Run() {
           }
           filename[i] = 0;
           status = STATUS_BUSY;
-          printf("waiting for file %s, size=%d\n", filename, filesize);
+          printf("Rx: receving file %s, size=%d\n", filename, filesize);
           int result = mkdir("./upload", 0777);
           fp = fopen(filename, "w");
           if (fp == NULL) {
@@ -112,7 +112,7 @@ void Client::Run() {
               gettimeofday(&tv_now, NULL);
               time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
-//              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_size, time_elapsed);
+//              printf("\rGetting %s: %d Bytes in %.5f Sec\n", filename, written_size, time_elapsed);
             }
           } else {
             if (filesize - written_size != fwrite(buff, sizeof(char), filesize - written_size, fp)) {
@@ -121,7 +121,7 @@ void Client::Run() {
               written_size = filesize;
               time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
-//              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_size, time_elapsed);
+//              printf("\rGetting %s: %d Bytes in %.5f Sec\n", filename, written_size, time_elapsed);
               cout << "Rx(" << host_name << "):";
               cout << peer_name << "->" << host_name << endl;
               cout << "  File size: " << written_size << "Bytes" << endl;
@@ -144,12 +144,19 @@ void Client::Run() {
 }
 
 bool Client::Send(char *data, size_t len) {
-  size_t write_len = write(socketFD, data, len);
-  if (write_len < 0) {
-    cout << "ERROR on write" << endl;
-    return false;
-  } else if (write_len < len) {
-    printf("Non complete write %d/%d \n", write_len, len);
+  int sent_len = 0;
+  int tmp_len = 0;  // send(socketFD, data, len, 0);
+  while(sent_len < len) {
+    tmp_len = send(socketFD, &data[sent_len], len-sent_len, 0);
+    if (tmp_len < 0) {
+//      cout << "ERROR on write" << endl;
+//      return false;
+    } else {
+      sent_len += tmp_len;
+      if (tmp_len != len) {
+        printf("Sent %d byte, total %d/%d\n", tmp_len, sent_len, len);
+      }
+    }
   }
   return true;
 }
@@ -197,10 +204,10 @@ bool Client::SendFile(const string& file_name) {
     buff[l++]=filename.c_str()[i++];
   }
   buff[l]=0;
-  for(i=0;i<l;i++){
-   printf("%c", buff[i]);
-  }
-  printf("\n");
+//  for(i=0;i<l;i++){
+//   printf("%c", buff[i]);
+//  }
+//  printf("\n");
   padding(buff, l);
   if (!Send(buff, PACKAGE_SIZE)) {
     printf("Initializing file transmittion error.\n");
@@ -212,7 +219,8 @@ bool Client::SendFile(const string& file_name) {
   int read_len;
   while ((read_len = fread(buff, sizeof(char), PACKAGE_SIZE, fp)) > 0) {
     padding(buff, read_len);
-    Send(buff, PACKAGE_SIZE);
+    while (!Send(buff, PACKAGE_SIZE)) {
+    }
     gettimeofday(&tv_now, NULL);
     written_size += read_len;
     time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
@@ -241,7 +249,6 @@ int Client::Connect(char* hostname, int portno) {
   }
   int port = portno;
   struct sockaddr_in serv_addr;
-  string buffer("Hello!!! The connection is established!");
 
   int c_socketFD = socket(AF_INET, SOCK_STREAM, 0);
   if (c_socketFD < 0) 
@@ -253,7 +260,7 @@ int Client::Connect(char* hostname, int portno) {
        (char *)&serv_addr.sin_addr.s_addr,
        server->h_length);
   serv_addr.sin_port = htons(port);
-  printf("trying to connect %s @ %d\n", hostname, port);
+//  printf("trying to connect %s @ %d\n", hostname, port);
   if (connect(c_socketFD,
               (struct sockaddr *) &serv_addr,
               sizeof(struct sockaddr_in)) < 0) {
@@ -266,4 +273,5 @@ int Client::Connect(char* hostname, int portno) {
 //  }
   return c_socketFD;
 }
+
 

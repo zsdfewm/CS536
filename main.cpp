@@ -3,6 +3,7 @@
 #include<string.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
 #include "rfss.h"
 
 using namespace std;
