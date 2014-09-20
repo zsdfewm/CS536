@@ -156,6 +156,7 @@ void Rfss::GenerateFile(const string& file_name, int file_size) {
   char *c_filename = new char[filename.size()+1];
   memcpy(c_filename, filename.c_str(), filename.size());
   c_filename[filename.size()] = '\0';
+  file_size *= 1024;
   printf("generateing %s, size = %d\n", c_filename, file_size); 
   FILE *fp = fopen(filename.c_str(), "w");
   if (fp != NULL) {

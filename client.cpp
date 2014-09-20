@@ -22,8 +22,7 @@
 
 using namespace std;
 
-char kMagicNumber1[] = "31415926";
-char kMagicNumber2[] = "27182818";
+char kMagicNumber[] = "31415926";
 size_t MAGIC_SIZE = 8;
 
 
@@ -77,14 +76,14 @@ void Client::Run() {
       }
     } else {
       if (len != 0) {
-        printf("message len = %d\n", len);
+//        printf("message len = %d\n", len);
         if (status == STATUS_IDLE) {
           buff[len]=0;
-          printf("Got message: %s\n", buff);
+//          printf("Got message: %s\n", buff);
           bool check = true;
           if (len < MAGIC_SIZE+sizeof(int)+1) {continue;}
           for(size_t i = 0; i < MAGIC_SIZE; ++i) {
-            if (buff[i] != kMagicNumber1[i]) {
+            if (buff[i] != kMagicNumber[i]) {
               check = false;
             }
           }
@@ -126,10 +125,10 @@ void Client::Run() {
                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
 //              printf("\rGetting %s: %d Bytes in %.5f Sec", filename, written_size, time_elapsed);
               cout << "Rx(" << host_name << "):";
-              cout << peer_name << "->" << host_name;
-              cout << "File size: " << written_size << "Bytes, ";
-              cout << "Time taken: " << time_elapsed << "Sec, ";
-              cout << "Rx rate: " << written_size/time_elapsed << "BPS" << endl;
+              cout << peer_name << "->" << host_name << endl;
+              cout << "  File size: " << written_size << "Bytes" << endl;
+              cout << "  Time taken: " << time_elapsed << "Sec, " << endl;
+              cout << "  Rx rate: "<< written_size/time_elapsed << "BPS" << endl;
               fclose(fp);
               status = STATUS_IDLE;
             }
@@ -143,7 +142,7 @@ void Client::Run() {
     }
   }
   printf("socket %x closed\n", socketFD);
-  shutdown(socketFD, 2);
+  close(socketFD);
   dead = true;
 }
 
@@ -189,7 +188,7 @@ bool Client::SendFile(const string& file_name) {
   size_t l=0;
   size_t i=0;
   while(i<MAGIC_SIZE) {
-    buff[l++] = kMagicNumber1[i++];
+    buff[l++] = kMagicNumber[i++];
   }
   char *tmp=(char*) (&filesize);
   i=0;
@@ -223,11 +222,11 @@ bool Client::SendFile(const string& file_name) {
                    (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
 //    printf("\rSend %d Bytes in %.5f Sec", written_size, time_elapsed);
   }
-  cout << "Tx(" << host_name << "):";
-  cout << host_name << "->" << peer_name;
-  cout << "File size: " << written_size << "Bytes, ";
-  cout << "Time taken: " << time_elapsed << "Sec, ";
-  cout << "Tx rate: " << written_size/time_elapsed << "Bps" << endl;
+  cout << "Tx(" << host_name << "): ";
+  cout << host_name << "->" << peer_name << endl;
+  cout << "  File size: " << written_size << "Bytes" << endl;
+  cout << "  Time taken: " << time_elapsed << "Sec" << endl;
+  cout << "  Tx rate: " << written_size/time_elapsed << "Bps" << endl;
   fclose(fp);
   return true;
 }
