@@ -86,25 +86,19 @@ void Client::Run() {
           fp = fopen(filename, "w");
           written_size = 0;
         } else if (status == STATUS_BUSY) {
-          if (written_size < filesize) {
+          if (written_size + PACKAGE_SIZE < filesize) {
             if (len != fwrite(buff, sizeof(char), len, fp)) {
               printf("Local file written error");
             } else {
               written_size += len;
             }
           } else {
-            bool check = false;
-            if (len == MAGIC_SIZE) {
-              check = true;
-              for(size_t i = 0; i < MAGIC_SIZE; ++i) {
-                if (buff[i] != kMagicNumber2[i]) {check = false;}
-              }
-            }
-            if (check) {
-              printf("file transfer done!\n");
-              status = STATUS_IDLE;
+            if (filesize - written_size != fwrite(buff, sizeof(char), filesize - written_size, fp)) {
+              printf("Local file written error");
             } else {
-              printf("Got a message(X): %s\n", buff);
+              written_size = filesize;
+              fclose(fp);
+              status = STATUS_IDLE;
             }
           }
         }
@@ -180,9 +174,11 @@ bool Client::SendFile(const string& file_name) {
 // 2: send file contents
   int read_len;
   while ((read_len = fread(buff, sizeof(char), PACKAGE_SIZE, fp)) > 0) {
-    Send(buff, read_len);
+    padding(buff, read_len);
+    Send(buff, PACKAGE_SIZE);
   }
 // 3: send magic number#2
+/*
   l=0;
   i=0;
   while( i < MAGIC_SIZE ) {
@@ -191,6 +187,7 @@ bool Client::SendFile(const string& file_name) {
   padding(buff, l);
   Send(buff, PACKAGE_SIZE);
   return true;
+*/
 }
 
 void Client::PrintInfo() {
