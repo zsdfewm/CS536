@@ -2,6 +2,7 @@
 #define _CS536_PA01_RFSS_H_
 
 #include <vector>
+#include <string>
 #include <thread>
 
 using namespace std;
@@ -25,7 +26,7 @@ class Rfss {
     void init(char *, int);
 
     // connect to a host
-    void connect(char *, int port);
+    void connect(const string&, int port);
 
     void GetMyIp();
 
@@ -33,8 +34,8 @@ class Rfss {
 
     //terminate a given connection
     void terminate(int);
-
-    void GenerateFile(char* file_name, int file_size);
+    void Upload(int dest, const string& filename);
+    void GenerateFile(const string& filename, int file_size);
 
     //exit the application
     void Stop();

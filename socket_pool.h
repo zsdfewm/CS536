@@ -4,6 +4,7 @@
 
 #include <pthread.h>
 #include <vector>
+#include <thread>
 
 using namespace std;
 class Client;
@@ -19,8 +20,13 @@ class SocketPool{
 
   void Stop();
 
+  void DaemonThread();
+  void RunDaemonThread();
+
+  bool stop;
   vector<Client*> client_pool;
   pthread_mutex_t pool_mutex;
+  thread *daemon_thread;
 };
 
 #endif // _SOCKET_POOL_H_

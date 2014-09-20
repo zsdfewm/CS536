@@ -19,14 +19,16 @@ class Client {
     ~Client();
 
     void Run();
-    bool Send(char *data, int len);
+    bool Send(char *data, size_t len);
     void Stop();
 
+    bool SendFile(const string& filename_str);
     void PrintInfo();
 
     static int Connect(char* hostname, int portno);
 
     bool stop;
+    bool dead;
     thread *client_thread;
     string local_name;
     int local_port;

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <netdb.h>
 #include <iostream>
 #include <errno.h>
@@ -13,11 +14,20 @@
 
 #include"client.h"
 
+#define STATUS_IDLE 0
+#define STATUS_BUSY 1
+
 using namespace std;
+
+char kMagicNumber1[] = "31415926";
+char kMagicNumber2[] = "27182818";
+size_t MAGIC_SIZE = 8;
+
 
 Client::Client(int socketFD_p) {
   socketFD = socketFD_p;
   stop = false;
+  dead = false;
   fcntl(socketFD, F_SETFL, O_NONBLOCK);
 }
 
@@ -31,30 +41,138 @@ void Client::Stop() {
 void Client::Run() {
   char buff[1000];
   int len;
+  FILE *fp;
+  int status = STATUS_IDLE;
+  int filesize;
+  int written_size;
+  char filename[1000];
+
+  printf("socket %x running\n", socketFD);
   while(stop == false) {
+//    printf("trying reading socket %x \n", socketFD);
     len = read(socketFD, buff, 1000);
     if (len == -1) {
+//      printf("errno = %x\n", errno);
       if (errno != EWOULDBLOCK) {
-        cout << "ERROR on read" << endl;
+        cout << "ERROR on read, stop socket" << endl;
+        break;
       }
     } else {
       if (len != 0) {
-        buff[len]=0;
-        printf("Got message: %s\n", buff);
+        if (status == STATUS_IDLE) {
+          buff[len]=0;
+          printf("Got message: %s\n", buff);
+          bool check = true;
+          if (len < MAGIC_SIZE+sizeof(int)+1) {continue;}
+          for(size_t i = 0; i < MAGIC_SIZE; ++i) {
+            if (buff[i] != kMagicNumber1[i]) {
+              check = false;
+            }
+          }
+          if (!check) {continue;}
+          filesize =* (int*)(&buff[8]);
+          size_t l = MAGIC_SIZE+sizeof(int);
+          size_t i = 0;
+          for(i = 0; l < len; ++i, ++l) {
+            filename[i]=buff[l];
+          }
+          filename[i] = 0;
+          status = STATUS_BUSY;
+          printf("waiting for file %s, size=%d\n", filename, filesize);
+          int result = mkdir("./upload", 0777);
+          fp = fopen(filename, "w");
+          written_size = 0;
+        } else if (status == STATUS_BUSY) {
+          if (written_size < filesize) {
+            if (len != fwrite(buff, sizeof(char), len, fp)) {
+              printf("Local file written error");
+            } else {
+              written_size += len;
+            }
+          } else {
+            bool check = false;
+            if (len == MAGIC_SIZE) {
+              check = true;
+              for(size_t i = 0; i < MAGIC_SIZE; ++i) {
+                if (buff[i] != kMagicNumber2[i]) {check = false;}
+              }
+            }
+            if (check) {
+              printf("file transfer done!\n");
+              status = STATUS_IDLE;
+            } else {
+              printf("Got a message(X): %s\n", buff);
+            }
+          }
+        }
+      } else {
+//        printf("len == 0 \n");
+        cout << "Length 0 message (closed channel?)" << endl;
+        break;
       }
     }
   }
-  close(socketFD);
+  printf("socket %x closed\n", socketFD);
+  shutdown(socketFD, 2);
+  dead = true;
 }
 
-bool Client::Send(char *data, int len) {
-  int write_len = write(socketFD, data, len);
+bool Client::Send(char *data, size_t len) {
+  size_t write_len = write(socketFD, data, len);
   if (write_len < 0) {
     cout << "ERROR on write" << endl;
     return false;
   } else if (write_len < len) {
     printf("Non complete write %d/%d \n", write_len, len);
   }
+  return true;
+}
+
+bool Client::SendFile(const string& file_name) {
+  int result = mkdir("./upload", 0777);
+  string filename = "./upload/" + file_name;
+  char* c_filename = new char[filename.size()+1];
+  memcpy(c_filename, filename.c_str(), filename.size());
+  c_filename[filename.size()] = 0;
+  int filesize;
+  FILE *fp = fopen(c_filename, "r");
+  fseek(fp, 0, SEEK_END);
+  filesize = ftell(fp);
+  fseek(fp, 0, SEEK_SET);
+  printf("reading file %s, size = %d\n", c_filename, filesize);
+  char buff[1000];
+// 1: send magic number#1+filesize+filename
+  size_t l=0;
+  size_t i=0;
+  while(i<MAGIC_SIZE) {
+    buff[l++] = kMagicNumber1[i++];
+  }
+  char *tmp=(char*) (&filesize);
+  i=0;
+  while(i<sizeof(int)) {
+    buff[l++]=tmp[i++];
+  }
+  i=0;
+  while(i<filename.size()) {
+    buff[l++]=filename.c_str()[i++];
+  }
+  buff[l]=0;
+  for(i=0;i<l;i++){
+   printf("%c", buff[i]);
+  }
+  printf("\n");
+  if (!Send(buff, l)) {
+    printf("Sending MagicNumber 1 error.\n");
+    fclose(fp);
+    return false;
+  }
+// 2: send file contents
+  int read_len;
+  while ((read_len = fread(buff, sizeof(char), 100, fp)) > 0) {
+    Send(buff, read_len);
+  }
+// 3: send magic number#2
+  Send(kMagicNumber2, MAGIC_SIZE);
   return true;
 }
 
@@ -154,7 +272,6 @@ void Client::ConnectServer()
          cout << "ERROR reading from socket" <<endl;
     cout << "The message is: " << buffer <<endl;
 }
-
 
 // Stop the connection to the server;
 void Client::stop()

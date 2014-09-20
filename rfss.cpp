@@ -8,6 +8,10 @@
 #include <unistd.h>
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "rfss.h"
 #include "client.h"
@@ -37,7 +41,7 @@ void Rfss::init(char * hostname, int port) {
     s_thread = new thread(&Server::svlisten, server);	//serverpart
     // Give the server 3 second to prepare
     sleep(3);
-
+    socket_pool->RunDaemonThread();
     // Take control of terminal
 
     //cout << "test... before join..." <<endl;
@@ -46,11 +50,15 @@ void Rfss::init(char * hostname, int port) {
 
 // Connected to a host;
 // When connect for the second time, error raises!!!
-void Rfss::connect(char * hostname, int port) {
+void Rfss::connect(const string& hostname_str, int port) {
+   char *hostname = new char[hostname_str.size()+1];
+   memcpy(hostname, hostname_str.c_str(), hostname_str.size());
+   hostname[hostname_str.size()] = '\0';
 
    int socketFD = Client::Connect(hostname, port);
    socket_pool->AddClient(socketFD);
 
+   delete[] hostname;
 //    Client *cli = new Client();
 //    cli->init(hostname, port);
 //    cout<<"Connect to " << hostname << " on Port "<<port <<endl;
@@ -157,5 +165,28 @@ void Rfss::ShowList() {
 
 }
 
-void Rfss::GenerateFile(char* file_name, int file_size) {
+void Rfss::Upload(int dest, const string& filename) {
+  socket_pool->client_pool[dest]->SendFile(filename);
+}
+void Rfss::GenerateFile(const string& file_name, int file_size) {
+  int result = mkdir("./upload", 0777);
+  string filename = "./upload/" + file_name;
+  char *c_filename = new char[filename.size()+1];
+  memcpy(c_filename, filename.c_str(), filename.size());
+  c_filename[filename.size()] = '\0';
+  printf("generateing %s, size = %d\n", c_filename, file_size); 
+  FILE *fp = fopen(filename.c_str(), "w");
+  if (fp != NULL) {
+    printf("OK!\n");
+  } else {
+    printf("ERROR!\n");
+  }
+  fflush(stdout);
+  char c;
+  for(int i = 0; i< file_size; ++i) {
+    c = 48 + (i % 10);
+    fputc(c, fp);
+//    printf("%c", c);
+  }
+  fclose(fp);
 }

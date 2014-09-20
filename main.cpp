@@ -23,10 +23,11 @@ int main(int argc, char * * argv)
     bool creator = false;
     bool badSwitch = false;
 
-    string c_hostname;
-    int c_port;
-
+    string hostname;
+    int port;
     string filename;
+    int filesize;
+
     int con_id;
 
     //int i=0;
@@ -126,15 +127,9 @@ int main(int argc, char * * argv)
         }
         if (portConnect) {
 	    portConnect = false;
-	    cin >> c_hostname;
-	    cin >> c_port;
-
-	    char *hostname = new char[c_hostname.size()+1];
-	    memcpy(hostname, c_hostname.c_str(), c_hostname.size());
-	    opt[c_hostname.size()] = '\0';
-
-	    rfss.connect(hostname, c_port);
-	    delete[] hostname;
+	    cin >> hostname;
+	    cin >> port;
+	    rfss.connect(hostname, port);
             //return EXIT_SUCCESS;
         }
         if (showList) {
@@ -147,10 +142,16 @@ int main(int argc, char * * argv)
             //return EXIT_SUCCESS;
         }
         if (fileGen) {
+            cin >> filename;
+            cin >> filesize;
 	    fileGen = false;
-            return EXIT_SUCCESS;
+            rfss.GenerateFile(filename, filesize);
+            //return EXIT_SUCCESS;
         }
         if (conUpload) {
+            cin >> con_id;
+            cin >> filename;
+            rfss.Upload(con_id, filename);
 	    conUpload = false;
             //return EXIT_SUCCESS;
         }
