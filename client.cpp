@@ -266,11 +266,6 @@ int Client::Connect(char* hostname, int portno) {
               sizeof(struct sockaddr_in)) < 0) {
     cout << "ERROR connecting" << endl << strerror(errno) <<endl;
   }
-//  char buff[100] = "hello channel\n";
-//  int len = write(c_socketFD, buff, 20);
-//  if (len < 0) {
-//    cout << "ERROR writing to socket" <<endl;
-//  }
   return c_socketFD;
 }
 
