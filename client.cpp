@@ -17,6 +17,8 @@
 #define STATUS_IDLE 0
 #define STATUS_BUSY 1
 
+#define PACKAGE_SIZE 512
+
 using namespace std;
 
 char kMagicNumber1[] = "31415926";
@@ -50,7 +52,7 @@ void Client::Run() {
   printf("socket %x running\n", socketFD);
   while(stop == false) {
 //    printf("trying reading socket %x \n", socketFD);
-    len = read(socketFD, buff, 1000);
+    len = read(socketFD, buff, PACKAGE_SIZE);
     if (len == -1) {
 //      printf("errno = %x\n", errno);
       if (errno != EWOULDBLOCK) {
@@ -129,6 +131,12 @@ bool Client::Send(char *data, size_t len) {
   return true;
 }
 
+void padding(char* buff, int used_len) {
+  for(int l = used_len; l < PACKAGE_SIZE; ++l) {
+    buff[l]=0;
+  }
+}
+
 bool Client::SendFile(const string& file_name) {
   int result = mkdir("./upload", 0777);
   string filename = "./upload/" + file_name;
@@ -141,7 +149,8 @@ bool Client::SendFile(const string& file_name) {
   filesize = ftell(fp);
   fseek(fp, 0, SEEK_SET);
   printf("reading file %s, size = %d\n", c_filename, filesize);
-  char buff[1000];
+  char buff[PACKAGE_SIZE];
+
 // 1: send magic number#1+filesize+filename
   size_t l=0;
   size_t i=0;
@@ -162,18 +171,25 @@ bool Client::SendFile(const string& file_name) {
    printf("%c", buff[i]);
   }
   printf("\n");
-  if (!Send(buff, l)) {
+  padding(buff, l);
+  if (!Send(buff, PACKAGE_SIZE)) {
     printf("Sending MagicNumber 1 error.\n");
     fclose(fp);
     return false;
   }
 // 2: send file contents
   int read_len;
-  while ((read_len = fread(buff, sizeof(char), 100, fp)) > 0) {
+  while ((read_len = fread(buff, sizeof(char), PACKAGE_SIZE, fp)) > 0) {
     Send(buff, read_len);
   }
 // 3: send magic number#2
-  Send(kMagicNumber2, MAGIC_SIZE);
+  size_t l=0;
+  size_t i=0;
+  while( i < MAGIC_SIZE ) {
+    buff[l++] = kMagicNumber2[i++];
+  }
+  padding(buff, l);
+  Send(buff, PACKAGE_SIZE);
   return true;
 }
 
