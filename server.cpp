@@ -1,13 +1,28 @@
-#include "server.h"
-
+#include <unistd.h>
+#include <netinet/in.h>
+#include <vector>
+#include <strings.h>
+#include <iostream>
+#include <thread>
+//#include <netdb.h>
+//#include <vector>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <string>
 #include <fcntl.h>
+
+
+#include "server.h"
+#include "socket_pool.h"
+
 using namespace std;
 //ServerWorker;
 
+/*
 ServerWorker::ServerWorker(int csFD) {
     client_socketFD=csFD;
 }
-void ServerWorker::stop() {
+vd ServerWorker::stop() {
     ::close(client_socketFD);
 }
 void ServerWorker::swread() {
@@ -19,12 +34,6 @@ void ServerWorker::swread() {
     
     len = read(client_socketFD,buff,100);
     //cout<<"Testing"<<endl;
-    /*for(int i=0; i<len; i++)
-    {
-	cout<<buff[i];
-	cout.flush();
-    }
-    cout<<endl;*/
 
     //string buffer(buff);
     if (len < 0) 
@@ -36,12 +45,12 @@ void ServerWorker::swread() {
     if (len < 0)
 	cout << "ERROR writing to socket" <<endl;
 }
+*/
 
-Server::Server() {
-    stop=false;
-}
-void Server::init(int portno) {
+Server::Server(SocketPool *socket_pool_p, int portno) {;
+    socket_pool = socket_pool_p;
     port = portno;
+    stop=false;
 }
 
 /**************/
@@ -72,13 +81,13 @@ void Server::svlisten() {
 	cout << "ERROR on binding"<<endl;
 
     listen(s_socketFD, 5);
-    cout << "Server is running" <<endl;
+    cout << "Server is running on: " << port <<endl;
     clilen = sizeof(cli_addr);
     //int counter=0;
     while(stop == false) {
 	// try to accept a client;
         //counter++;
-	clisocketFD = accept(s_socketFD, (struct sockaddr *) & cli_addr, &clilen);
+	clisocketFD = accept(s_socketFD, (struct sockaddr *)&cli_addr, &clilen);
 
 	if (clisocketFD < 0) {
             if (errno == EWOULDBLOCK) {
@@ -86,33 +95,17 @@ void Server::svlisten() {
 	        cout << "ERROR on accept" <<endl;
             }
 	} else {
-
-	    //cout << "Testing..." <<
-
-	    struct sockaddr *c_addr = new(struct sockaddr);
-	    bcopy((struct sockaddr *) & cli_addr, (struct sockaddr *) c_addr, clilen);
-	    cli_addr_vec.push_back(c_addr);
-
-	    //tmpAddrPtr=&((struct sockaddr_in *)caddr)->sin_addr.s_addr;
-	    //cout << "!!!0Test ..." << cli_addr.sin_addr.s_addr <<endl;
-	    //cout << "!!!1Test ..." << &((struct sockaddr_in *)c_addr)->sin_addr.s_addr <<endl;
-
-	    ServerWorker *server_worker = new ServerWorker(clisocketFD);
-	    std::thread *server_worker_thread = new thread(&ServerWorker::swread, server_worker);
-	    server_worker_vec.push_back(server_worker);
-	    server_worker_thread_vec.push_back(server_worker_thread);
+           cout << "haa, got one!" << endl;
+            socket_pool->AddClient(clisocketFD);
         }
     }
     //when terminate is called
     cout<<"Server stops"<<endl;
 
-    for(ServerWorker *server_worker : server_worker_vec) {
-      server_worker->stop();
-    }
-    // release all sockets;
+    // release server sockets;
     close(s_socketFD);
 }
-void Server::exit() {
+void Server::Stop() {
   this->stop = true;
 }
 

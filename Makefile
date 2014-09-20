@@ -12,12 +12,17 @@ server.o: server.cpp server.h
 client.o: client.cpp client.h
 	g++ -std=c++0x -Wall -Wshadow -pthread client.cpp -c -o $@
 
-rfss: main.o rfss.o server.o client.o
+socket_pool.o: socket_pool.cpp socket_pool.h
+	g++ -std=c++0x -Wall -Wshadow -pthread socket_pool.cpp -c -o $@
+
+rfss: main.o rfss.o server.o client.o socket_pool.o
 	g++ -std=c++0x -Wall -Wshadow -Wno-write-strings -pthread $^ -o $@
 
 server :
 	make server.o
 client :
 	make client.o
+socket_pool:
+	make socket_pool.o
 clean:
 	rm *.o rfss

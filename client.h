@@ -1,42 +1,40 @@
 #ifndef _CS536_PA01_CLIENT_H_
 #define _CS536_PA01_CLIENT_H_
 
-#include <netinet/in.h>
-#include <sys/socket.h>
 #include <string>
-#include <strings.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <netdb.h> 
-#include <iostream>
-#include <errno.h>
-#include <stdint.h>
-#include <limits>
-
+#include <thread>
+/*
 class Message{
     char msgname[256];
     int msglen;
 };
+*/
+using namespace std;
 
 // The client class of rfss, each instance contains the information of the other
 // end of the socked and the socked descriptor.
 class Client {
   public:
-    //std::string server_name;
-    struct hostent *server;
-    int server_port;
-    struct sockaddr_in client_add;
-    int c_socketFD;
+    Client(int socketFD);
+    ~Client();
 
-    // Initialize the client to the server;
-    void init(char *, int);
+    void Run();
+    bool Send(char *data, int len);
+    void Stop();
 
-    // Upload the file to the server;
-    void ConnectServer();
+    void PrintInfo();
 
-    // Stop the connection to the server;
-    void stop();
+    static int Connect(char* hostname, int portno);
+
+    bool stop;
+    thread *client_thread;
+    string local_name;
+    int local_port;
+    string peer_name;
+    int peer_port;
+//    struct hostent *peer_host;
+//    struct sockaddr_in peer_add;
+    int socketFD;
 };
 
 #endif  // _CS536_PA01_CLIENT_H_

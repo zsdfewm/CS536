@@ -1,34 +1,23 @@
 #ifndef _CS536_PA01_RFSS_H_
 #define _CS536_PA01_RFSS_H_
 
-#include <iostream>
-#include <thread>
-#include <netdb.h>
 #include <vector>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <string>
-#include <unistd.h>
-#include <ifaddrs.h>
-#include <arpa/inet.h>
+#include <thread>
 
-
-//#include "rfss.h"
-#include "client.h"
-#include "server.h"
+using namespace std;
 
 class Client;
 class Server;
+class SocketPool;
 
 // The main class of the remote file sharing system
 class Rfss {
   public:
-    std::vector<Client*> client_vec;
-    std::vector<std::thread *> server_thread;
+    
+    SocketPool *socket_pool;
+    Server *server;
 
-    Server server;
-
-    std::thread *s_thread;
+    thread *s_thread;
     // The constructor
     //Rfss(char *, int);
 
@@ -48,7 +37,7 @@ class Rfss {
     void GenerateFile(char* file_name, int file_size);
 
     //exit the application
-    void exit();
+    void Stop();
   
 };
 

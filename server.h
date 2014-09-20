@@ -2,22 +2,17 @@
 #define _CS536_PA01_SERVER_H_
 
 
-#include <unistd.h>
-#include <netinet/in.h>
-#include <vector>
-#include <strings.h>
-#include <iostream>
-#include <thread>
-//#include <netdb.h>
-//#include <vector>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <string>
-
 //#include "rfss.h"
 //#include "client.h"
 
+#include <thread>
+
+using namespace std;
 // Each worker corresponds to one client connection
+
+class SocketPool;
+
+/*
 class ServerWorker {
   public:
     int client_socketFD;
@@ -28,6 +23,7 @@ class ServerWorker {
 
 
 };
+*/
 
 // Server class
 class Server {
@@ -36,20 +32,20 @@ class Server {
     bool stop;
     int port;
 
-    std::vector<ServerWorker*> server_worker_vec;
-    std::vector<std::thread *> server_worker_thread_vec;
-    std::vector<struct sockaddr *> cli_addr_vec;
+    // Constructor 
+    Server(SocketPool *socket_pool_p, int portno);
+//    std::vector<ServerWorker*> server_worker_vec;
+//    std::vector<std::thread *> server_worker_thread_vec;
+//    std::vector<struct sockaddr *> cli_addr_vec;
 
-    Server();
-    // init the serve;
-    void init(int port);
-
-    // exit the server;
-    void exit();
+    // stop the server;
+    void Stop();
 
     // Begin to listen the port and loop forever to accept new clients
     void svlisten();
 
+    thread *server_thread;
+    SocketPool *socket_pool;    
 };
 
 #endif  // _CS536_PA01_SERVER_H_

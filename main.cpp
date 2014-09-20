@@ -10,6 +10,7 @@ using namespace std;
 
 int main(int argc, char * * argv)
 {
+
     bool help = false;
     bool p_exit = false;
     bool showMyip = false;
@@ -110,7 +111,7 @@ int main(int argc, char * * argv)
         }
         if (p_exit){
 	    p_exit = false;
-	    rfss.exit();
+	    rfss.Stop();
             return EXIT_SUCCESS;
         }
         if (showMyip){

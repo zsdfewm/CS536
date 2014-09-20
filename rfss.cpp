@@ -1,4 +1,18 @@
+#include <iostream>
+#include <thread>
+#include <netdb.h>
+#include <vector>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <string>
+#include <unistd.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
+
 #include "rfss.h"
+#include "client.h"
+#include "server.h"
+#include "socket_pool.h"
 
 using namespace std;
 
@@ -16,9 +30,11 @@ Rfss::Rfss(char * hostname, int port) {
 /**/
 void Rfss::init(char * hostname, int port) {
     //client.init(hostname, port);
-    server.init(port);	//serverpart
+    socket_pool = new SocketPool();
+    cout << "tryint server on: "<< port << endl;
+    server = new Server(socket_pool, port);	//serverpart
     // Let the server begin to listen
-    s_thread = new thread (&Server::svlisten, &server);	//serverpart
+    s_thread = new thread(&Server::svlisten, server);	//serverpart
     // Give the server 3 second to prepare
     sleep(3);
 
@@ -26,44 +42,44 @@ void Rfss::init(char * hostname, int port) {
 
     //cout << "test... before join..." <<endl;
     //server_thread.join();	//serverpart
-
-    
 }
 
 // Connected to a host;
 // When connect for the second time, error raises!!!
 void Rfss::connect(char * hostname, int port) {
-    Client *cli = new Client();
-    cli->init(hostname, port);
-    cout<<"Connect to " << hostname << " on Port "<<port <<endl;
+
+   int socketFD = Client::Connect(hostname, port);
+   socket_pool->AddClient(socketFD);
+
+//    Client *cli = new Client();
+//    cli->init(hostname, port);
+//    cout<<"Connect to " << hostname << " on Port "<<port <<endl;
     //client.init(hostname, port);
     //if (cli->connect()) {
-    client_vec.push_back(cli);
-    cli->ConnectServer();
+//    client_vec.push_back(cli);
+//    cli->ConnectServer();
     //cli->stop();
 
-    void * tmpAddrPtr = NULL;
-    tmpAddrPtr=&((cli->client_add).sin_addr);
+//    void * tmpAddrPtr = NULL;
+//    tmpAddrPtr=&((cli->client_add).sin_addr);
     //cout << "Test..." << tmpAddrPtr <<endl;
 }
 
 /* terminate one connection with host */
 void Rfss::terminate(int connect_id) {
-    Client *cli = client_vec[connect_id-1];
-    cli->stop();
-    delete cli;
-    client_vec.erase(client_vec.begin()+connect_id-1);
+//    Client *cli = client_vec[connect_id-1];
+//    cli->stop();
+//    delete cli;
+//    client_vec.erase(client_vec.begin()+connect_id-1);
 }
 
 /* terminate all connections and exit the process */
-void Rfss::exit(){
+void Rfss::Stop(){
     cout<<"sleep for 3 sec"<<endl;
     sleep(3);
-    server.exit();
-    for(Client *client : client_vec) {
-      client->stop();
-    }
+    server->Stop();
     s_thread->join();
+    socket_pool->Stop();
 }
 
 /* display the ip of local machine */
@@ -108,6 +124,8 @@ void Rfss::GetMyIp() {
 
 
 void Rfss::ShowList() {
+  socket_pool->PrintList();
+/*
     //unsigned int i=0;
     void * tmpAddrPtr=NULL;
     //Client * c = client_vec.front();
@@ -135,7 +153,7 @@ void Rfss::ShowList() {
 	cout << j << " : " <<addressBuffer<<endl;
 	j++;
     }
-/**/
+*/
 
 }
 
