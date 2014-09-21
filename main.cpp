@@ -44,7 +44,7 @@ int main(int argc, char * * argv)
     gethostname(c_hostname, 1023);
     int port_num = atoi(argv[1]);
     printf("localhost name: %s\n", c_hostname);
-    rfss.Init("localhost", port_num); 
+    rfss.Init(c_hostname, port_num); 
     cout << "Please input your option... Type help for assistance..." <<endl;
 
     string option;
