@@ -169,8 +169,8 @@ int main(int argc, char * * argv)
         }
         if (badSwitch) {
 	    badSwitch = false;
-            cout << "The option is not found... Aborting the program..." <<endl;
-            return EXIT_FAILURE;
+            cout << "The option is not found... Please check..." <<endl;
+//          return EXIT_FAILURE;
         }
 
 	cout << endl<<"Please input your option..." <<endl;

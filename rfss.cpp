@@ -21,7 +21,19 @@
 using namespace std;
 
 void Rfss::Init(char * hostname, int port) {
-    //client.init(hostname, port);
+    string line;
+    ifstream myfile("config.txt");
+    if(myfile.is_open())
+    {
+        getline(myfile,line);
+        myfile.close();
+    } else { 
+        cout<< "Unable to open config.txt!" <<endl;
+    }
+    Client::PACKAGE_SIZE = atoi(line.c_str());
+    cout << "PACKAGE_SIZE = " << Client::PACKAGE_SIZE << endl;
+
+//client.init(hostname, port);
     host_name = hostname;
     socket_pool = new SocketPool();
     cout << "tryint server on: "<< port << endl;
