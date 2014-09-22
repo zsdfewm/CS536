@@ -136,8 +136,8 @@ void Client::Run(){
 			else {
 	                    written_size += len;
 	                    gettimeofday(&tv_now, NULL);
-	                    time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
-	                    (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
+	                    time_elapsed = (tv_now.tv_sec - tv_start.tv_sec)*1000000 +
+	                    (double)(tv_now.tv_usec - tv_start.tv_usec);
 			    //printf("\rGetting %s: %d Bytes in %.5f Sec\n", filename, written_size, time_elapsed);
 	                }
 	            } else {
@@ -146,14 +146,14 @@ void Client::Run(){
 		            printf("Local file written error");
 		        } else {
 	                    written_size = filesize;
-	                    time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
-	                    (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
+	                    time_elapsed = (tv_now.tv_sec - tv_start.tv_sec)*1000000 +
+	                    (double)(tv_now.tv_usec - tv_start.tv_usec);
 			    //printf("\rGetting %s: %d Bytes in %.5f Sec\n", filename, written_size, time_elapsed);
 	                    cout << "Rx(" << host_name << "):";
 	                    cout << peer_name << "->" << host_name << endl;
 	                    cout << "  File size: " << written_size << "Bytes" << endl;
-	                    cout << "  Time taken: " << time_elapsed << "Sec, " << endl;
-	                    cout << "  Rx rate: "<< written_size/time_elapsed << "BPS" << endl;
+	                    cout << "  Time taken: " << time_elapsed << "useconds, " << endl;
+	                    cout << "  Rx rate: "<< 8*written_size/(1000000*time_elapsed) << "bits/second" << endl;
 	                    fclose(fp);
 	                    status = STATUS_IDLE;
 	                }
@@ -250,15 +250,15 @@ bool Client::SendFile(const string& file_name) {
         }
         gettimeofday(&tv_now, NULL);
         written_size += read_len;
-        time_elapsed = (tv_now.tv_sec - tv_start.tv_sec) +
-                   (double)(tv_now.tv_usec - tv_start.tv_usec)/1000000;
+        time_elapsed = (tv_now.tv_sec - tv_start.tv_sec)*1000000 +
+	                    (double)(tv_now.tv_usec - tv_start.tv_usec);
 //    printf("\rSend %d Bytes in %.5f Sec", written_size, time_elapsed);
     }
     cout << "Tx(" << host_name << "): ";
     cout << host_name << "->" << peer_name << endl;
     cout << "  File size: " << written_size << "Bytes" << endl;
-    cout << "  Time taken: " << time_elapsed << "Sec" << endl;
-    cout << "  Tx rate: " << written_size/time_elapsed << "Bps" << endl;
+    cout << "  Time taken: " << time_elapsed << "useconds" << endl;
+    cout << "  Tx rate: " << 8*written_size/(1000000*time_elapsed) << "bits/second" << endl;
     fclose(fp);
     return true;
 }

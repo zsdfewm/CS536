@@ -1,0 +1,160 @@
+========================================package size = 100=============================================
+====sender====
+Sent 12 byte, total 12/100
+Sent 88 byte, total 100/100
+Sent 72 byte, total 72/100
+Sent 28 byte, total 100/100
+Sent 32 byte, total 32/100
+Sent 68 byte, total 100/100
+Sent 92 byte, total 92/100
+Sent 8 byte, total 100/100
+Sent 52 byte, total 52/100
+Sent 48 byte, total 100/100
+Sent 12 byte, total 12/100
+Sent 88 byte, total 100/100
+Sent 72 byte, total 72/100
+Sent 28 byte, total 100/100
+Sent 32 byte, total 32/100
+Sent 68 byte, total 100/100
+Sent 92 byte, total 92/100
+Sent 8 byte, total 100/100
+Sent 52 byte, total 52/100
+Sent 48 byte, total 100/100
+Sent 12 byte, total 12/100
+Sent 88 byte, total 100/100
+Sent 72 byte, total 72/100
+Sent 28 byte, total 100/100
+Sent 32 byte, total 32/100
+Sent 68 byte, total 100/100
+Sent 92 byte, total 92/100
+Sent 8 byte, total 100/100
+Sent 52 byte, total 52/100
+Sent 48 byte, total 100/100
+Sent 12 byte, total 12/100
+Sent 88 byte, total 100/100
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.742817Sec
+  Tx rate: 7.0581e+07Bps
+
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.734798Sec, 
+  Rx rate: 7.13513e+07BPS
+
+========================================package size = 300=============================================
+====sender====
+Sent 84 byte, total 84/300
+Sent 216 byte, total 300/300
+Sent 144 byte, total 144/300
+Sent 156 byte, total 300/300
+Sent 204 byte, total 204/300
+Sent 96 byte, total 300/300
+Sent 264 byte, total 264/300
+Sent 36 byte, total 300/300
+Sent 24 byte, total 24/300
+Sent 276 byte, total 300/300
+Sent 84 byte, total 84/300
+Sent 216 byte, total 300/300
+Sent 144 byte, total 144/300
+Sent 156 byte, total 300/300
+Sent 204 byte, total 204/300
+Sent 96 byte, total 300/300
+Sent 264 byte, total 264/300
+Sent 36 byte, total 300/300
+Sent 24 byte, total 24/300
+Sent 276 byte, total 300/300
+Sent 84 byte, total 84/300
+Sent 216 byte, total 300/300
+Sent 144 byte, total 144/300
+Sent 156 byte, total 300/300
+Sent 204 byte, total 204/300
+Sent 96 byte, total 300/300
+Sent 264 byte, total 264/300
+Sent 36 byte, total 300/300
+Sent 24 byte, total 24/300
+Sent 276 byte, total 300/300
+Sent 84 byte, total 84/300
+Sent 216 byte, total 300/300
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.737061Sec
+  Tx rate: 7.11322e+07Bps
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.732347Sec, 
+  Rx rate: 7.15901e+07BPS
+
+========================================package size = 500=============================================
+====sender====
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.73656Sec
+  Tx rate: 7.11806e+07Bps
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.731785Sec, 
+  Rx rate: 7.16451e+07BPS
+
+========================================package size = 700=============================================
+====sender====
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.745333Sec
+  Tx rate: 7.03428e+07Bps
+
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.73716Sec, 
+  Rx rate: 7.11227e+07BPS
+
+========================================package size = 900=============================================
+====sender====
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.737935Sec
+  Tx rate: 7.1048e+07Bps
+
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.736146Sec, 
+  Rx rate: 7.12207e+07BPS
+
+========================================package size = 1100=============================================
+====sender====
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.73486Sec
+  Tx rate: 7.13453e+07Bps
+
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.730346Sec, 
+  Rx rate: 7.17862e+07BPS
+
+========================================package size = 1300=============================================
+====sender====
+Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.736485Sec
+  Tx rate: 7.11879e+07Bps
+
+====receiver====
+Rx: receving file ./Upload/a.txt, size=52428800
+Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
+  File size: 52428800Bytes
+  Time taken: 0.733543Sec, 
+  Rx rate: 7.14734e+07BPS
+

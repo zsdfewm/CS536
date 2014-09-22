@@ -1,0 +1,198 @@
+xinu20 is the server
+
+=====================================1 Client=======================================
+xinu19 57 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.69 port 56264 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    680 MBytes    570 Mbits/sec
+
+xinu20 74 $ iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 128.10.3.70 port 5001 connected with 128.10.3.69 port 56264
+[  4]  0.0-10.0 sec    680 MBytes    570 Mbits/sec
+
+
+=====================================2 Clients=======================================
+xinu19 60 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.69 port 56303 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    354 MBytes    297 Mbits/sec
+
+xinu18 54 iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.68 port 37828 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    311 MBytes    261 Mbits/sec
+
+xinu20 75 $ iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 128.10.3.70 port 5001 connected with 128.10.3.68 port 37828
+[  5] local 128.10.3.70 port 5001 connected with 128.10.3.69 port 56303
+[  4]  0.0-10.0 sec    311 MBytes    261 Mbits/sec
+[  5]  0.0-10.0 sec    354 MBytes    297 Mbits/sec
+
+
+
+=====================================3 Clients=======================================
+xinu19 63 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.69 port 56315 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    274 MBytes    230 Mbits/sec
+
+xinu18 57 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.68 port 37831 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    187 MBytes    157 Mbits/sec
+
+xinu17 56 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.67 port 60735 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.1 sec    289 MBytes    240 Mbits/sec
+
+
+xinu20 77 $ iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 128.10.3.70 port 5001 connected with 128.10.3.67 port 60735
+[  5] local 128.10.3.70 port 5001 connected with 128.10.3.68 port 37831
+[  6] local 128.10.3.70 port 5001 connected with 128.10.3.69 port 56315
+[  4]  0.0-10.1 sec    289 MBytes    240 Mbits/sec
+[  5]  0.0-10.0 sec    187 MBytes    156 Mbits/sec
+[  6]  0.0-10.0 sec    274 MBytes    229 Mbits/sec
+
+
+=====================================4 Clients=======================================
+xinu19 64 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.69 port 56319 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    201 MBytes    168 Mbits/sec
+
+
+xinu18 58 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.68 port 37832 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    156 MBytes    131 Mbits/sec
+
+
+xinu17 57 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.67 port 60806 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    169 MBytes    142 Mbits/sec
+
+xinu16 53 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.66 port 48110 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    259 MBytes    217 Mbits/sec
+
+
+xinu20 78 $ iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 128.10.3.70 port 5001 connected with 128.10.3.66 port 48110
+[  5] local 128.10.3.70 port 5001 connected with 128.10.3.67 port 60806
+[  6] local 128.10.3.70 port 5001 connected with 128.10.3.68 port 37832
+[  7] local 128.10.3.70 port 5001 connected with 128.10.3.69 port 56319
+[  4]  0.0-10.1 sec    259 MBytes    216 Mbits/sec
+[  5]  0.0-10.0 sec    169 MBytes    142 Mbits/sec
+[  6]  0.0-10.0 sec    156 MBytes    131 Mbits/sec
+[  7]  0.0-10.0 sec    201 MBytes    168 Mbits/sec
+
+
+=====================================5 Clients=======================================
+xinu19 65 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.69 port 56323 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    169 MBytes    142 Mbits/sec
+
+xinu18 59 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.68 port 37833 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    142 MBytes    119 Mbits/sec
+
+
+xinu17 58 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.67 port 60878 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    166 MBytes    139 Mbits/sec
+
+xinu16 54 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.66 port 48111 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.1 sec  92.9 MBytes  76.8 Mbits/sec
+
+xinu15 55 $ iperf -c xinu20
+------------------------------------------------------------
+Client connecting to xinu20, TCP port 5001
+TCP window size: 45.0 KByte (default)
+------------------------------------------------------------
+[  3] local 128.10.3.65 port 56224 connected with 128.10.3.70 port 5001
+[  3]  0.0-10.0 sec    279 MBytes    234 Mbits/sec
+
+
+iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 128.10.3.70 port 5001 connected with 128.10.3.65 port 56224
+[  5] local 128.10.3.70 port 5001 connected with 128.10.3.66 port 48111
+[  6] local 128.10.3.70 port 5001 connected with 128.10.3.67 port 60878
+[  7] local 128.10.3.70 port 5001 connected with 128.10.3.68 port 37833
+[  8] local 128.10.3.70 port 5001 connected with 128.10.3.69 port 56323
+[  4]  0.0-10.0 sec    279 MBytes    233 Mbits/sec
+[  5]  0.0-10.2 sec  92.9 MBytes  76.7 Mbits/sec
+[  6]  0.0-10.0 sec    166 MBytes    139 Mbits/sec
+[  7]  0.0-10.0 sec    142 MBytes    119 Mbits/sec
+[  8]  0.0-10.0 sec    169 MBytes    142 Mbits/sec
+
