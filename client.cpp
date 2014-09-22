@@ -35,7 +35,6 @@ Client::Client(int socketFD_p) {
     struct sockaddr addr;
     socklen_t addrlen = sizeof(addr);
     getpeername(socketFD, &addr, &addrlen);
-    string line;
 
     char host[NI_MAXHOST];
     char serv[NI_MAXSERV];
@@ -48,16 +47,6 @@ Client::Client(int socketFD_p) {
     getnameinfo(&addr, addrlen, host, sizeof(host), serv, sizeof(serv), NI_NUMERICHOST);
     peer_ip = host;
 
-    ifstream myfile("config.txt");
-    if(myfile.is_open())
-    {
-	getline(myfile,line);
-        myfile.close();
-    }
-    else
-	cout<< "Unable to open config.txt!" <<endl;
-    Client::PACKAGE_SIZE = atoi(line.c_str());
-
 }
 
 
@@ -68,7 +57,7 @@ void Client::Stop() {
 
 //enable client's ability to accept file
 void Client::Run(){
-    char buff[1000];
+    char buff[10000];
     int len;
     FILE *fp;
     int status = STATUS_IDLE;
@@ -77,7 +66,7 @@ void Client::Run(){
     char filename[1000];
     struct timeval tv_start, tv_now;
     double time_elapsed;
-
+cout << "client running" << endl; 
     while(stop == false){
         len = recv(socketFD, buff, PACKAGE_SIZE, 0);
         if (len == -1){
@@ -119,7 +108,7 @@ void Client::Run(){
 	            status = STATUS_BUSY;
 	            printf("Rx: receving file %s, size=%d\n", filename, filesize);
 	            //int result = mkdir("./upload", 0777);
-		    mkdir("./upload", 0777);
+		    mkdir("./Upload", 0777);
 	            fp = fopen(filename, "w");
 	            if (fp == NULL) {
 	                printf("Rx: Can not open local file: %s\n", filename);
@@ -293,6 +282,7 @@ int Client::Connect(char* hostname, int portno) {
               sizeof(struct sockaddr_in)) < 0) {
         cout << "ERROR connecting" << endl << strerror(errno) <<endl;
     }
+//    send(c_socketFD, "hello channel", 100, 0);
     return c_socketFD;
 }
 
