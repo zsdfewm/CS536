@@ -1,138 +1,138 @@
 ========================================One Sender========================================
 Tx(xinu17.cs.purdue.edu): xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.732504Sec
-  Tx rate: 7.15748e+07Bps
+  Time taken: 732504Sec
+  Tx rate: 5.72598e+08Bps
 
 Rx(xinu16.cs.purdue.edu):xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.731423Sec, 
-  Rx rate: 7.16805e+07BPS
+  Time taken: 731423Sec, 
+  Rx rate: 5.73444e+08BPS
 
 ========================================Two Senders========================================
 Tx(xinu18.cs.purdue.edu): xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.04289Sec
-  Tx rate: 5.02727e+07Bps
+  Time taken: 1042890Sec
+  Tx rate: 4.02182e+08Bps
 
 Tx(xinu17.cs.purdue.edu): xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.3077Sec
-  Tx rate: 4.00923e+07Bps
+  Time taken: 1307700Sec
+  Tx rate: 3.20738e+08Bps
 
 Rx(xinu16.cs.purdue.edu):xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.04699Sec, 
-  Rx rate: 5.00758e+07BPS
+  Time taken: 1046990Sec, 
+  Rx rate: 4.00606e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.08669Sec, 
-  Rx rate: 4.82463e+07BPS
+  Time taken: 1086690Sec, 
+  Rx rate: 3.85970e+08BPS
 
 ========================================Three Senders========================================
 Tx(xinu17.cs.purdue.edu): xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.842489Sec
-  Tx rate: 6.22308e+07Bps
+  Time taken: 842489Sec
+  Tx rate: 4.97846e+08Bps
 Tx(xinu18.cs.purdue.edu): xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.73614Sec
-  Tx rate: 3.01985e+07Bps
+  Time taken: 1736140Sec
+  Tx rate: 2.41588e+08Bps
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.72666Sec
-  Tx rate: 3.03644e+07Bps
+  Time taken: 1726660Sec
+  Tx rate: 2.42915e+08Bps
 
 Rx(xinu16.cs.purdue.edu):xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.846006Sec, 
-  Rx rate: 6.19721e+07BPS
+  Time taken: 846006Sec, 
+  Rx rate: 4.95777e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.5468Sec, 
-  Rx rate: 3.38951e+07BPS
+  Time taken: 1546800Sec, 
+  Rx rate: 2.71161e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu19.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.71956Sec, 
-  Rx rate: 3.04897e+07BPS
+  Time taken: 1719560Sec, 
+  Rx rate: 2.43918e+08BPS
 
 ========================================Four Senders========================================
 Tx(xinu17.cs.purdue.edu): xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.41551Sec
-  Tx rate: 2.17051e+07Bps
+  Time taken: 2415510Sec
+  Tx rate: 1.73641e+08Bps
 Tx(xinu18.cs.purdue.edu): xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.876975Sec
-  Tx rate: 5.97837e+07Bps
+  Time taken: 876975Sec
+  Tx rate: 4.78270e+08Bps
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.56603Sec
-  Tx rate: 2.04319e+07Bps
+  Time taken: 2566030Sec
+  Tx rate: 1.63455e+08Bps
 Tx(xinu20.cs.purdue.edu): xinu20.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.05326Sec
-  Tx rate: 2.55344e+07Bps
+  Time taken: 2053260Sec
+  Tx rate: 2.04275e+08Bps
 
 Rx(xinu16.cs.purdue.edu):xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.881763Sec, 
-  Rx rate: 5.94591e+07BPS
+  Time taken: 881763Sec, 
+  Rx rate: 4.75673e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.40583Sec, 
-  Rx rate: 2.17924e+07BPS
+  Time taken: 2405830Sec, 
+  Rx rate: 1.74339e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu20.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.80984Sec, 
-  Rx rate: 2.89687e+07BPS
+  Time taken: 1809840Sec, 
+  Rx rate: 2.31750e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu19.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.33529Sec, 
-  Rx rate: 2.24507e+07BPS
+  Time taken: 2335290Sec, 
+  Rx rate: 1.79606e+08BPS
 
 ========================================Five Senders========================================
 
 Tx(xinu17.cs.purdue.edu): xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.37436Sec
-  Tx rate: 3.81479e+07Bps
+  Time taken: 1374360Sec
+  Tx rate: 3.05183e+08Bps
 Tx(xinu18.cs.purdue.edu): xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.79856Sec
-  Tx rate: 1.87342e+07Bps
+  Time taken: 2798560Sec
+  Tx rate: 1.49874e+08Bps
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.75277Sec
-  Tx rate: 1.90458e+07Bps
+  Time taken: 2752770Sec
+  Tx rate: 1.52366e+08Bps
 Tx(xinu20.cs.purdue.edu): xinu20.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.80768Sec
-  Tx rate: 1.86733e+07Bps
+  Time taken: 2807680Sec
+  Tx rate: 1.49386e+08Bps
 Tx(xinu21.cs.purdue.edu): xinu21.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.6927Sec
-  Tx rate: 1.94707e+07Bps
+  Time taken: 2692700Sec
+  Tx rate: 1.55766e+08Bps
 
 Rx(xinu16.cs.purdue.edu):xinu17.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 1.40491Sec, 
-  Rx rate: 3.73182e+07BPS
+  Time taken: 1404910Sec, 
+  Rx rate: 2.98546e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu18.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.82459Sec, 
-  Rx rate: 1.85616e+07BPS
+  Time taken: 2824590Sec, 
+  Rx rate: 1.48493e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu19.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.75446Sec, 
-  Rx rate: 1.90341e+07BPS
+  Time taken: 2754460Sec, 
+  Rx rate: 1.52273e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu20.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.79939Sec, 
-  Rx rate: 1.87287e+07BPS
+  Time taken: 2799390Sec, 
+  Rx rate: 1.49830e+08BPS
 Rx(xinu16.cs.purdue.edu):xinu21.cs.purdue.edu->xinu16.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 2.68071Sec, 
-  Rx rate: 1.95578e+07BPS
+  Time taken: 2680710Sec, 
+  Rx rate: 1.56462e+08BPS
 
 

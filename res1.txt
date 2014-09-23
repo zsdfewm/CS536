@@ -100,38 +100,38 @@ Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
 ======sender====== filesize = 1KB
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 1024Bytes
-  Time taken: 2.5e-05Sec
-  Tx rate: 4.096e+07Bps
+  Time taken: 25useconds
+  Tx rate: 3.2768e+08bits/second
 
 ======receiver======
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 1024Bytes
-  Time taken: 1.1e-05Sec, 
-  Rx rate: 9.30909e+07BPS
+  Time taken: 11useconds
+  Rx rate: 7.44727e+08bits/second
 
 ======sender====== filesize = 4KB
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 4096Bytes
-  Time taken: 7.3e-05Sec
-  Tx rate: 5.61096e+07Bps
+  Time taken: 73useconds
+  Tx rate: 4.48877e+08bits/second
 
 ======receiver======
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 4096Bytes
-  Time taken: 2.1e-05Sec, 
-  Rx rate: 1.95048e+08BPS
+  Time taken: 21useconds
+  Rx rate: 1.56038e+09bits/second
 
 ======sender====== filesize = 16KB
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 16384Bytes
-  Time taken: 0.000118Sec
-  Tx rate: 1.38847e+08Bps
+  Time taken: 118useconds
+  Tx rate: 1.11078e+09bits/second
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=16384
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 16384Bytes
-  Time taken: 2.5e-05Sec, 
-  Rx rate: 6.5536e+08BPS
+  Time taken: 25useconds 
+  Rx rate: 5.24288e+09bits/second
 
 ======sender====== filesize = 64KB
 upload 1 a.txt
@@ -140,434 +140,142 @@ Sent 472 byte, total 472/1000
 Sent 528 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 65536Bytes
-  Time taken: 0.000226Sec
-  Tx rate: 2.89982e+08Bps
+  Time taken: 226useconds
+  Tx rate: 2.319856e+09bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=65536
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 65536Bytes
-  Time taken: 6.7e-05Sec, 
-  Rx rate: 9.78149e+08BPS
+  Time taken: 67useconds
+  Rx rate: 7.82519e+09bits/second
 
 
 ======sender====== filesize = 256KB
-upload 1 a.txt
-reading file ./Upload/a.txt, size = 262144
-Sent 592 byte, total 592/1000
-Sent 408 byte, total 1000/1000
-Sent 752 byte, total 752/1000
-Sent 248 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 262144Bytes
-  Time taken: 0.0014Sec
-  Tx rate: 1.87246e+08Bps
+  Time taken: 1400useconds
+  Tx rate: 1.49797e+09bits/second
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=262144
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 262144Bytes
-  Time taken: 0.000898Sec, 
-  Rx rate: 2.9192e+08BPS
+  Time taken: 898useconds 
+  Rx rate: 2.33536e+09bits/second
 
 ======sender====== filesize = 1MB
-upload 1 a.txt
-reading file ./Upload/a.txt, size = 1048576
-Sent 320 byte, total 320/1000
-Sent 680 byte, total 1000/1000
-Sent 480 byte, total 480/1000
-Sent 520 byte, total 1000/1000
-Sent 640 byte, total 640/1000
-Sent 360 byte, total 1000/1000
-Sent 800 byte, total 800/1000
-Sent 200 byte, total 1000/1000
-Sent 960 byte, total 960/1000
-Sent 40 byte, total 1000/1000
-Sent 120 byte, total 120/1000
-Sent 880 byte, total 1000/1000
-Sent 280 byte, total 280/1000
-Sent 720 byte, total 1000/1000
-Sent 440 byte, total 440/1000
-Sent 560 byte, total 1000/1000
-Sent 600 byte, total 600/1000
-Sent 400 byte, total 1000/1000
-Sent 760 byte, total 760/1000
-Sent 240 byte, total 1000/1000
-Sent 920 byte, total 920/1000
-Sent 80 byte, total 1000/1000
-Sent 80 byte, total 80/1000
-Sent 920 byte, total 1000/1000
-Sent 240 byte, total 240/1000
-Sent 760 byte, total 1000/1000
-Sent 400 byte, total 400/1000
-Sent 600 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 1048576Bytes
-  Time taken: 0.007649Sec
-  Tx rate: 1.37087e+08Bps
+  Time taken: 7649useconds
+  Tx rate: 1.09670e+09bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=1048576
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 1048576Bytes
-  Time taken: 0.008908Sec, 
-  Rx rate: 1.17712e+08BPS
+  Time taken: 8908useconds 
+  Rx rate: 9.41696e+08bits/second
 
 ======sender====== filesize = 4MB
-Sent 16 byte, total 16/1000
-Sent 984 byte, total 1000/1000
-Sent 176 byte, total 176/1000
-Sent 824 byte, total 1000/1000
-Sent 336 byte, total 336/1000
-Sent 664 byte, total 1000/1000
-Sent 496 byte, total 496/1000
-Sent 504 byte, total 1000/1000
-Sent 656 byte, total 656/1000
-Sent 344 byte, total 1000/1000
-Sent 816 byte, total 816/1000
-Sent 184 byte, total 1000/1000
-Sent 976 byte, total 976/1000
-Sent 24 byte, total 1000/1000
-Sent 136 byte, total 136/1000
-Sent 864 byte, total 1000/1000
-Sent 296 byte, total 296/1000
-Sent 704 byte, total 1000/1000
-Sent 456 byte, total 456/1000
-Sent 544 byte, total 1000/1000
-Sent 616 byte, total 616/1000
-Sent 384 byte, total 1000/1000
-Sent 776 byte, total 776/1000
-Sent 224 byte, total 1000/1000
-Sent 936 byte, total 936/1000
-Sent 64 byte, total 1000/1000
-Sent 96 byte, total 96/1000
-Sent 904 byte, total 1000/1000
-Sent 256 byte, total 256/1000
-Sent 744 byte, total 1000/1000
-Sent 416 byte, total 416/1000
-Sent 584 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 4194304Bytes
-  Time taken: 0.043528Sec
-  Tx rate: 9.63588e+07Bps
+  Time taken: 43528useconds
+  Tx rate: 7.70870e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=4194304
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 4194304Bytes
-  Time taken: 0.053447Sec, 
-  Rx rate: 7.84759e+07BPS
+  Time taken: 53447useconds 
+  Rx rate: 6.278072e+08bits/second
 
 ======sender====== filesize = 10MB
-Sent 96 byte, total 96/1000
-Sent 904 byte, total 1000/1000
-Sent 256 byte, total 256/1000
-Sent 744 byte, total 1000/1000
-Sent 416 byte, total 416/1000
-Sent 584 byte, total 1000/1000
-Sent 576 byte, total 576/1000
-Sent 424 byte, total 1000/1000
-Sent 736 byte, total 736/1000
-Sent 264 byte, total 1000/1000
-Sent 896 byte, total 896/1000
-Sent 104 byte, total 1000/1000
-Sent 56 byte, total 56/1000
-Sent 944 byte, total 1000/1000
-Sent 216 byte, total 216/1000
-Sent 784 byte, total 1000/1000
-Sent 376 byte, total 376/1000
-Sent 624 byte, total 1000/1000
-Sent 536 byte, total 536/1000
-Sent 464 byte, total 1000/1000
-Sent 696 byte, total 696/1000
-Sent 304 byte, total 1000/1000
-Sent 856 byte, total 856/1000
-Sent 144 byte, total 1000/1000
-Sent 16 byte, total 16/1000
-Sent 984 byte, total 1000/1000
-Sent 176 byte, total 176/1000
-Sent 824 byte, total 1000/1000
-Sent 336 byte, total 336/1000
-Sent 664 byte, total 1000/1000
-Sent 496 byte, total 496/1000
-Sent 504 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 10485760Bytes
-  Time taken: 0.132924Sec
-  Tx rate: 7.88854e+07Bps
+  Time taken: 132924useconds
+  Tx rate: 6.31083e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=10485760
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 10485760Bytes
-  Time taken: 0.143215Sec, 
-  Rx rate: 7.32169e+07BPS
+  Time taken: 143215useconds
+  Rx rate: 5.85735e+08bits/second
 
 ======sender====== filesize = 20MB
-Sent 72 byte, total 72/1000
-Sent 928 byte, total 1000/1000
-Sent 232 byte, total 232/1000
-Sent 768 byte, total 1000/1000
-Sent 392 byte, total 392/1000
-Sent 608 byte, total 1000/1000
-Sent 552 byte, total 552/1000
-Sent 448 byte, total 1000/1000
-Sent 712 byte, total 712/1000
-Sent 288 byte, total 1000/1000
-Sent 872 byte, total 872/1000
-Sent 128 byte, total 1000/1000
-Sent 32 byte, total 32/1000
-Sent 968 byte, total 1000/1000
-Sent 192 byte, total 192/1000
-Sent 808 byte, total 1000/1000
-Sent 352 byte, total 352/1000
-Sent 648 byte, total 1000/1000
-Sent 512 byte, total 512/1000
-Sent 488 byte, total 1000/1000
-Sent 672 byte, total 672/1000
-Sent 328 byte, total 1000/1000
-Sent 832 byte, total 832/1000
-Sent 168 byte, total 1000/1000
-Sent 992 byte, total 992/1000
-Sent 8 byte, total 1000/1000
-Sent 152 byte, total 152/1000
-Sent 848 byte, total 1000/1000
-Sent 312 byte, total 312/1000
-Sent 688 byte, total 1000/1000
-Sent 472 byte, total 472/1000
-Sent 528 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 20971520Bytes
-  Time taken: 0.28099Sec
-  Tx rate: 7.46344e+07Bps
+  Time taken: 280990useconds
+  Tx rate: 5.97075e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=20971520
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 20971520Bytes
-  Time taken: 0.290449Sec, 
-  Rx rate: 7.22038e+07BPS
+  Time taken: 290449useconds
+  Rx rate: 5.77630e+08bits/second
 
 ======sender====== filesize = 30MB
-Sent 368 byte, total 368/1000
-Sent 632 byte, total 1000/1000
-Sent 528 byte, total 528/1000
-Sent 472 byte, total 1000/1000
-Sent 688 byte, total 688/1000
-Sent 312 byte, total 1000/1000
-Sent 848 byte, total 848/1000
-Sent 152 byte, total 1000/1000
-Sent 8 byte, total 8/1000
-Sent 992 byte, total 1000/1000
-Sent 168 byte, total 168/1000
-Sent 832 byte, total 1000/1000
-Sent 328 byte, total 328/1000
-Sent 672 byte, total 1000/1000
-Sent 488 byte, total 488/1000
-Sent 512 byte, total 1000/1000
-Sent 648 byte, total 648/1000
-Sent 352 byte, total 1000/1000
-Sent 808 byte, total 808/1000
-Sent 192 byte, total 1000/1000
-Sent 968 byte, total 968/1000
-Sent 32 byte, total 1000/1000
-Sent 128 byte, total 128/1000
-Sent 872 byte, total 1000/1000
-Sent 288 byte, total 288/1000
-Sent 712 byte, total 1000/1000
-Sent 448 byte, total 448/1000
-Sent 552 byte, total 1000/1000
-Sent 608 byte, total 608/1000
-Sent 392 byte, total 1000/1000
-Sent 768 byte, total 768/1000
-Sent 232 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 31457280Bytes
-  Time taken: 0.431329Sec
-  Tx rate: 7.29311e+07Bps
+  Time taken: 431329useconds
+  Tx rate: 5.83449e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=31457280
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 31457280Bytes
-  Time taken: 0.437816Sec, 
-  Rx rate: 7.18505e+07BPS
+  Time taken: 437816useconds
+  Rx rate: 5.74804e+08bits/second
 
 ======sender====== filesize = 40MB
-Sent 208 byte, total 208/1000
-Sent 792 byte, total 1000/1000
-Sent 368 byte, total 368/1000
-Sent 632 byte, total 1000/1000
-Sent 528 byte, total 528/1000
-Sent 472 byte, total 1000/1000
-Sent 688 byte, total 688/1000
-Sent 312 byte, total 1000/1000
-Sent 848 byte, total 848/1000
-Sent 152 byte, total 1000/1000
-Sent 8 byte, total 8/1000
-Sent 992 byte, total 1000/1000
-Sent 168 byte, total 168/1000
-Sent 832 byte, total 1000/1000
-Sent 328 byte, total 328/1000
-Sent 672 byte, total 1000/1000
-Sent 488 byte, total 488/1000
-Sent 512 byte, total 1000/1000
-Sent 648 byte, total 648/1000
-Sent 352 byte, total 1000/1000
-Sent 808 byte, total 808/1000
-Sent 192 byte, total 1000/1000
-Sent 968 byte, total 968/1000
-Sent 32 byte, total 1000/1000
-Sent 128 byte, total 128/1000
-Sent 872 byte, total 1000/1000
-Sent 288 byte, total 288/1000
-Sent 712 byte, total 1000/1000
-Sent 448 byte, total 448/1000
-Sent 552 byte, total 1000/1000
-Sent 608 byte, total 608/1000
-Sent 392 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 41943040Bytes
-  Time taken: 0.579047Sec
-  Tx rate: 7.24346e+07Bps
+  Time taken: 579047useconds
+  Tx rate: 5.79477e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=41943040
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 41943040Bytes
-  Time taken: 0.584544Sec, 
-  Rx rate: 7.17534e+07BPS
+  Time taken: 584544useconds
+  Rx rate: 5.74027e+08bits/second
 
 ======sender====== filesize = 50MB
-Sent 320 byte, total 320/1000
-Sent 680 byte, total 1000/1000
-Sent 480 byte, total 480/1000
-Sent 520 byte, total 1000/1000
-Sent 640 byte, total 640/1000
-Sent 360 byte, total 1000/1000
-Sent 800 byte, total 800/1000
-Sent 200 byte, total 1000/1000
-Sent 960 byte, total 960/1000
-Sent 40 byte, total 1000/1000
-Sent 120 byte, total 120/1000
-Sent 880 byte, total 1000/1000
-Sent 280 byte, total 280/1000
-Sent 720 byte, total 1000/1000
-Sent 440 byte, total 440/1000
-Sent 560 byte, total 1000/1000
-Sent 600 byte, total 600/1000
-Sent 400 byte, total 1000/1000
-Sent 760 byte, total 760/1000
-Sent 240 byte, total 1000/1000
-Sent 920 byte, total 920/1000
-Sent 80 byte, total 1000/1000
-Sent 80 byte, total 80/1000
-Sent 920 byte, total 1000/1000
-Sent 240 byte, total 240/1000
-Sent 760 byte, total 1000/1000
-Sent 400 byte, total 400/1000
-Sent 600 byte, total 1000/1000
-Sent 560 byte, total 560/1000
-Sent 440 byte, total 1000/1000
-Sent 720 byte, total 720/1000
-Sent 280 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.728346Sec
-  Tx rate: 7.19834e+07Bps
+  Time taken: 728346useconds
+  Tx rate: 5.75867e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=52428800
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 52428800Bytes
-  Time taken: 0.731229Sec, 
-  Rx rate: 7.16996e+07BPS
+  Time taken: 731229useconds, 
+  Rx rate: 5.73597e+08bits/second
 
 ======sender====== filesize = 60MB
-Sent 320 byte, total 320/1000
-Sent 680 byte, total 1000/1000
-Sent 480 byte, total 480/1000
-Sent 520 byte, total 1000/1000
-Sent 640 byte, total 640/1000
-Sent 360 byte, total 1000/1000
-Sent 800 byte, total 800/1000
-Sent 200 byte, total 1000/1000
-Sent 960 byte, total 960/1000
-Sent 40 byte, total 1000/1000
-Sent 120 byte, total 120/1000
-Sent 880 byte, total 1000/1000
-Sent 280 byte, total 280/1000
-Sent 720 byte, total 1000/1000
-Sent 440 byte, total 440/1000
-Sent 560 byte, total 1000/1000
-Sent 600 byte, total 600/1000
-Sent 400 byte, total 1000/1000
-Sent 760 byte, total 760/1000
-Sent 240 byte, total 1000/1000
-Sent 920 byte, total 920/1000
-Sent 80 byte, total 1000/1000
-Sent 80 byte, total 80/1000
-Sent 920 byte, total 1000/1000
-Sent 240 byte, total 240/1000
-Sent 760 byte, total 1000/1000
-Sent 400 byte, total 400/1000
-Sent 600 byte, total 1000/1000
-Sent 560 byte, total 560/1000
-Sent 440 byte, total 1000/1000
-Sent 720 byte, total 720/1000
-Sent 280 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 62914560Bytes
-  Time taken: 0.877046Sec
-  Tx rate: 7.17346e+07Bps
+  Time taken: 877046useconds
+  Tx rate: 5.73877e+08bits/second
 
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=62914560
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 62914560Bytes
-  Time taken: 0.878104Sec, 
-  Rx rate: 7.16482e+07BPS
+  Time taken: 878104useconds 
+  Rx rate: 5.73185e+08bits/second
 
 ======sender====== filesize = 70MB
-Sent 416 byte, total 416/1000
-Sent 584 byte, total 1000/1000
-Sent 576 byte, total 576/1000
-Sent 424 byte, total 1000/1000
-Sent 736 byte, total 736/1000
-Sent 264 byte, total 1000/1000
-Sent 896 byte, total 896/1000
-Sent 104 byte, total 1000/1000
-Sent 56 byte, total 56/1000
-Sent 944 byte, total 1000/1000
-Sent 216 byte, total 216/1000
-Sent 784 byte, total 1000/1000
-Sent 376 byte, total 376/1000
-Sent 624 byte, total 1000/1000
-Sent 536 byte, total 536/1000
-Sent 464 byte, total 1000/1000
-Sent 696 byte, total 696/1000
-Sent 304 byte, total 1000/1000
-Sent 856 byte, total 856/1000
-Sent 144 byte, total 1000/1000
-Sent 16 byte, total 16/1000
-Sent 984 byte, total 1000/1000
-Sent 176 byte, total 176/1000
-Sent 824 byte, total 1000/1000
-Sent 336 byte, total 336/1000
-Sent 664 byte, total 1000/1000
-Sent 496 byte, total 496/1000
-Sent 504 byte, total 1000/1000
-Sent 656 byte, total 656/1000
-Sent 344 byte, total 1000/1000
-Sent 816 byte, total 816/1000
-Sent 184 byte, total 1000/1000
 Tx(xinu19.cs.purdue.edu): xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 73400320Bytes
-  Time taken: 1.02593Sec
-  Tx rate: 7.15451e+07Bps
+  Time taken: 1025930useconds
+  Tx rate: 5.72361e+08bits/second
 ======receiver======
 Rx: receving file ./Upload/a.txt, size=73400320
 Rx(xinu20.cs.purdue.edu):xinu19.cs.purdue.edu->xinu20.cs.purdue.edu
   File size: 73400320Bytes
-  Time taken: 1.02523Sec, 
-  Rx rate: 7.15941e+07BPS
+  Time taken: 1025230useconds, 
+  Rx rate: 5.72753e+08bits/second
 
