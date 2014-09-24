@@ -8,6 +8,8 @@
 #include "socket_pool.h"
 #include "client.h"
 
+using namespace std;
+
 SocketPool::SocketPool() {
   pool_mutex = PTHREAD_MUTEX_INITIALIZER;
   stop = false;

@@ -8,7 +8,8 @@
 
 using namespace std;
 
-
+// The main function, initialize a Rfss instance and then take control
+// of the terminal, until exit is received.
 int main(int argc, char * * argv)
 {
 
@@ -57,25 +58,25 @@ int main(int argc, char * * argv)
 	//for(i=2; i<argc; i++)
 	//{
 	//Check which option is input by user
-	if(strcmp(opt, "help") == 0)
+	if(strcasecmp(opt, "help") == 0)
 	    help = true;
-	else if(strcmp(opt, "exit") == 0)
+	else if(strcasecmp(opt, "exit") == 0)
 	    p_exit = true;
-	else if(strcmp(opt, "myip") == 0)
+	else if(strcasecmp(opt, "myip") == 0)
 	    showMyip = true;
-	else if(strcmp(opt, "myport") == 0)
+	else if(strcasecmp(opt, "myport") == 0)
 	    myport = true;
-	else if(strcmp(opt, "connect") == 0)
+	else if(strcasecmp(opt, "connect") == 0)
 	    portConnect = true;
-	else if(strcmp(opt, "list") == 0)
+	else if(strcasecmp(opt, "list") == 0)
 	    showList = true;
-	else if(strcmp(opt, "terminate") == 0)
+	else if(strcasecmp(opt, "terminate") == 0)
 	    conTerminate = true;
-	else if(strcmp(opt, "generate") == 0)
+	else if(strcasecmp(opt, "generate") == 0)
 	    fileGen = true;
-	else if(strcmp(opt, "upload") == 0)
+	else if(strcasecmp(opt, "upload") == 0)
 	    conUpload = true;
-	else if(strcmp(opt, "creator") == 0)
+	else if(strcasecmp(opt, "creator") == 0)
 	    creator = true;
 	else
 	{

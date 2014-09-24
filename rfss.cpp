@@ -12,6 +12,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <fstream>
 
 #include "rfss.h"
 #include "client.h"

@@ -142,7 +142,7 @@ cout << "client running" << endl;
 	                    cout << peer_name << "->" << host_name << endl;
 	                    cout << "  File size: " << written_size << "Bytes" << endl;
 	                    cout << "  Time taken: " << time_elapsed << "useconds, " << endl;
-	                    cout << "  Rx rate: "<< 8*1000000*written_size/time_elapsed << "bits/second" << endl;
+	                    cout << "  Rx rate: "<< 8*1000000*(written_size/time_elapsed) << "bits/second" << endl;
 	                    fclose(fp);
 	                    status = STATUS_IDLE;
 	                }
@@ -247,7 +247,7 @@ bool Client::SendFile(const string& file_name) {
     cout << host_name << "->" << peer_name << endl;
     cout << "  File size: " << written_size << "Bytes" << endl;
     cout << "  Time taken: " << time_elapsed << "useconds" << endl;
-    cout << "  Tx rate: " << 8*1000000*written_size/time_elapsed << "bits/second" << endl;
+    cout << "  Tx rate: " << 8*1000000*(written_size/time_elapsed) << "bits/second" << endl;
     fclose(fp);
     return true;
 }

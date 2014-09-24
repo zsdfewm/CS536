@@ -7,14 +7,16 @@
 #include <thread>
 
 #define SOCKET_POOL_SIZE 5
-using namespace std;
+
 class Client;
 
+// The socketPool, client_pool contains all client instances of 
+// current connections. A daemon thread will loop over the instances
+// to collect dead connections.
 class SocketPool{
  public:
   SocketPool();
  
-
   bool AddClient(int socketFD);
   
   void PrintList();
@@ -22,14 +24,16 @@ class SocketPool{
   void Stop();
 
   void DaemonThread();
+
   void RunDaemonThread();
   
-  bool DupCheck(const string& peer_name);
+  bool DupCheck(const std::string& peer_name);
 
   bool stop;
-  vector<Client*> client_pool;
+
+  std::vector<Client*> client_pool;
   pthread_mutex_t pool_mutex;
-  thread *daemon_thread;
+  std::thread *daemon_thread;
 };
 
 #endif // _SOCKET_POOL_H_

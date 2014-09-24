@@ -19,25 +19,29 @@ class Rfss {
     Server *server;
     string host_name;
     thread *s_thread;
-    // The constructor
-    //Rfss(char *, int);
 
-    // init the TCP server, and take control of the terminal
+    // Initialize the server listening
     void Init(char *, int);
 
-    // connect to a host
+    // Connect to a host
     void Connect(const string&, int port);
 
+    // Show hostname and IP.
     void GetMyIp();
 
+    // Show current connections
     void ShowList();
 
-    //terminate a given connection
+    // Terminate a given connection
     void Terminate(int);
+    
+    // Upload a file to a connection
     void Upload(int dest, const string& filename);
+
+    // Generate file
     void GenerateFile(const string& filename, int file_size);
 
-    //exit the application
+    // Stop the application
     void Stop();  
 };
 
